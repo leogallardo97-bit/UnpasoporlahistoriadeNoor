@@ -3,477 +3,446 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Andalus Meta-Agent | Biblioteca Técnica de Gestión del Conocimiento</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <title>Noor Archive Nil | Al-Andalus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700&family=Cormorant+Garamond:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0a0c10;
-            --card-glass: rgba(255, 255, 255, 0.03);
-            --gold: #d4af37;
-            --gold-bright: #f4d03f;
-            --teal: #1abc9c;
-            --text-main: #e0e0e0;
-            --text-muted: #a0a0a0;
-            --accent-gradient: linear-gradient(135deg, #d4af37 0%, #1abc9c 100%);
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --bg: #0a0a0a;
+            --nil-cyan: #00f2ff;
+            --califal-gold: #d4af37;
+            --text-silver: #d1d1d1;
+            --glass: rgba(255, 255, 255, 0.02);
+            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text-silver);
             font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
-            line-height: 1.6;
-            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05), transparent),
-                              radial-gradient(circle at bottom left, rgba(26, 188, 156, 0.05), transparent);
+            scroll-behavior: smooth;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Nav */
-        nav {
-            padding: 2rem;
-            position: absolute;
-            top: 0;
-            width: 100%;
+        /* --- Nil Entity --- */
+        #nil-avatar {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            z-index: 1000;
+            cursor: pointer;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            z-index: 10;
+            justify-content: center;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-        }
-
-        /* Hero Section */
-        header {
-            height: 70vh;
+        .nil-drop {
             width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, var(--nil-cyan), transparent);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            animation: float 4s ease-in-out infinite, ripple 3s linear infinite;
             position: relative;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+
+        @keyframes ripple {
+            0% { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; }
+            50% { border-radius: 45% 55% 45% 55% / 55% 45% 55% 45%; }
+            100% { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; }
+        }
+
+        .nil-bubble {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            width: 300px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            pointer-events: none;
+            color: var(--nil-cyan);
+            font-weight: 300;
+            font-size: 0.95rem;
+            text-align: right;
+        }
+
+        #nil-avatar:hover .nil-bubble {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Layout --- */
+        header {
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 2rem;
-            overflow: hidden;
+            position: relative;
+            z-index: 5;
         }
 
-        .hero-video-mock {
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            letter-spacing: 4px;
+            color: var(--califal-gold);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            line-height: 1.8;
+            letter-spacing: 2px;
+            font-weight: 200;
+            opacity: 0.8;
+        }
+
+        /* --- Fluvial Path --- */
+        .river-container {
+            position: relative;
+            width: 100%;
+            height: 4000px; /* Longitud del viaje */
+            margin-top: -10vh;
+        }
+
+        .river-svg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(10, 12, 16, 0.6), rgba(10, 12, 16, 1));
             z-index: 1;
-        }
-
-        .hero-content {
-            z-index: 2;
-            max-width: 900px;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            margin-bottom: 1.5rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -2px;
-            line-height: 1.1;
-        }
-
-        .hero-content p {
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        /* Centuries Slider/Grid */
-        .scenarium {
-            padding: 6rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            margin-bottom: 4rem;
-            text-align: center;
-        }
-
-        .section-header h2 {
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-        }
-
-        .century-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1rem;
-            margin-bottom: 6rem;
-        }
-
-        .century-btn {
-            background: var(--card-glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            padding: 2rem 1.5rem;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 1.3rem;
-            font-weight: 600;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            position: relative;
-        }
-
-        .century-btn span {
-            font-size: 0.8rem;
-            margin-top: 8px;
-            opacity: 0.6;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .century-btn:hover, .century-btn.active {
-            border-color: var(--gold);
-            color: #fff;
-            background: rgba(212, 175, 55, 0.08);
-            transform: translateY(-8px);
-        }
-
-        .century-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            width: 30%;
-            height: 3px;
-            background: var(--gold);
-            border-radius: 10px;
-        }
-
-        /* Category System */
-        #cat-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--transition);
             pointer-events: none;
         }
 
-        #cat-container.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
+        .river-path {
+            fill: none;
+            stroke: var(--nil-cyan);
+            stroke-width: 2;
+            stroke-dasharray: 10, 20;
+            opacity: 0.15;
         }
 
-        .category-card {
-            background: var(--card-glass);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 24px;
-            padding: 3rem 2rem;
-            text-align: center;
+        .nil-flow-line {
+            fill: none;
+            stroke: var(--nil-cyan);
+            stroke-width: 1;
+            opacity: 0.4;
+            filter: blur(1px);
+        }
+
+        /* --- Century Nodes --- */
+        .node {
+            position: absolute;
+            z-index: 10;
+            transform: translate(-50%, -50%);
             cursor: pointer;
             transition: var(--transition);
-            backdrop-filter: blur(20px);
         }
 
-        .category-card:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .cat-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            display: block;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
-        }
-
-        .category-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            color: var(--gold);
-        }
-
-        .category-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* Results Panel / Alpha Interface */
-        .results-panel {
-            margin-top: 8rem;
-            padding: 5rem;
-            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: none;
-            animation: slideUp 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .ficha-header {
+        .node-circle {
+            width: 24px;
+            height: 24px;
+            background: var(--bg);
+            border: 2px solid var(--califal-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 2rem;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
         }
 
-        .ficha-badge {
-            background: var(--accent-gradient);
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.75rem;
+        .node:hover .node-circle {
+            background: var(--califal-gold);
+            transform: scale(1.5);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+        }
+
+        .node-label {
+            position: absolute;
+            left: 40px;
+            white-space: nowrap;
+            color: var(--califal-gold);
+            font-size: 1.2rem;
             letter-spacing: 2px;
-            color: #000;
+            font-weight: 200;
             text-transform: uppercase;
         }
 
-        .source-box {
-            background: #12141a;
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
-            font-family: monospace;
-            color: var(--teal);
+        .node-desc {
+            position: absolute;
+            left: 40px;
+            top: 30px;
+            white-space: nowrap;
+            color: var(--text-silver);
+            font-size: 0.8rem;
+            opacity: 0.5;
+            letter-spacing: 1px;
         }
 
-        .ficha-body {
-            font-size: 1.4rem;
-            line-height: 1.7;
-            color: #f0f0f0;
-            margin-bottom: 4rem;
-            max-width: 1000px;
+        /* --- Info Card --- */
+        .info-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%;
+            max-width: 800px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 30px;
+            padding: 4rem;
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: var(--transition);
+            box-shadow: 0 100px 200px rgba(0,0,0,1);
         }
 
-        .suggestions {
+        .info-card.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .card-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--califal-gold);
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--califal-gold);
+            margin-bottom: 2rem;
+        }
+
+        .card-body {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            font-weight: 200;
+            color: #fff;
+            margin-bottom: 3rem;
+        }
+
+        .category-links {
             display: flex;
             gap: 1.5rem;
-            flex-wrap: wrap;
         }
 
-        .suggest-chip {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 2rem;
+        .cat-btn {
+            background: var(--glass);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            color: var(--nil-cyan);
+            padding: 0.8rem 1.5rem;
             border-radius: 12px;
-            font-size: 1rem;
             cursor: pointer;
             transition: var(--transition);
-            background: transparent;
-            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .suggest-chip:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            background: rgba(212, 175, 55, 0.05);
+        .cat-btn:hover {
+            background: rgba(0, 242, 255, 0.1);
+            border-color: var(--nil-cyan);
         }
 
-        /* Loading */
-        .loader-wrapper {
-            display: none;
-            text-align: center;
-            margin: 5rem 0;
-        }
-
-        .loader {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(212, 175, 55, 0.15);
-            border-top: 4px solid var(--gold);
-            border-radius: 50%;
-            animation: spin 1s infinite cubic-bezier(0.5, 0, 0.5, 1);
-            margin: 0 auto 1.5rem;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        footer {
-            padding: 6rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-        }
-
-        /* Patterns */
-        .pattern-overlay {
+        /* --- Loading Overlay --- */
+        #loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 0;
+            background: var(--bg);
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
+
+        #loader p {
+            color: var(--nil-cyan);
+            letter-spacing: 4px;
+            font-weight: 200;
+            margin-top: 2rem;
+        }
+
+        .loading-wave {
+            width: 100px;
+            height: 2px;
+            background: var(--nil-cyan);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px var(--nil-cyan);
+        }
+
+        .loading-wave::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            animation: wave-run 1.5s infinite;
+        }
+
+        @keyframes wave-run {
+            100% { left: 100%; }
+        }
+
     </style>
 </head>
 <body>
-    <div class="pattern-overlay"></div>
 
-    <nav>
-        <div class="logo">NOOR / ARCHIVE</div>
-        <div style="font-size: 0.8rem; letter-spacing: 2px;">V2.0.46 BETA</div>
-    </nav>
+    <div id="loader">
+        <div class="loading-wave"></div>
+        <p id="loader-msg">Nil está buceando en los archivos de Córdoba...</p>
+    </div>
+
+    <div id="nil-avatar">
+        <div class="nil-bubble">Hola, soy Nil y te acompañaré en este viaje.</div>
+        <div class="nil-drop"></div>
+    </div>
 
     <header>
-        <div class="hero-video-mock"></div>
-        <div class="hero-content">
-            <h1>Explora Al-Andalus con Inteligencia</h1>
-            <p>Accede a la biblioteca técnica gestionada por MCP. Un puente entre la investigación JCR y la síntesis generativa.</p>
-        </div>
+        <h1>Noor Archive Nil</h1>
+        <p>"Un paso por la historia que se convirtió en la madre de culturas de Occidente: Al-Andalus"</p>
+        <div style="margin-top: 5rem; opacity: 0.3; letter-spacing: 5px;">DESLIZA PARA NAVEGAR EL RÍO DEL TIEMPO ↓</div>
     </header>
 
-    <main class="scenarium">
-        <div class="section-header">
-            <h2>01 / Línea de Tiempo</h2>
+    <div class="river-container">
+        <svg class="river-svg" viewBox="0 0 1000 4000">
+            <path id="main-river" class="river-path" d="M 500 0 Q 700 300 500 600 T 500 1200 T 500 1800 T 500 2400 T 500 3000 T 500 3600 T 500 4000" />
+            <path id="flow-line" class="nil-flow-line" d="" />
+        </svg>
+
+        <!-- Nodes will be injected here via JS -->
+    </div>
+
+    <div id="info-modal" class="info-card">
+        <div class="card-close" onclick="closeModal()">&times;</div>
+        <h2 class="card-title" id="m-title">Siglo X</h2>
+        <div class="card-body" id="m-body">
+            ...
         </div>
-
-        <div class="century-grid">
-            <button class="century-btn" onclick="selectCentury('X', 'Califato de Córdoba')">X <span>Califato</span></button>
-            <button class="century-btn" onclick="selectCentury('XI', 'Primeras Taifas')">XI <span>Taifas</span></button>
-            <button class="century-btn" onclick="selectCentury('XII', 'Almorávides/Almohades')">XII <span>Imperios</span></button>
-            <button class="century-btn" onclick="selectCentury('XIII', 'Reino de Granada')">XIII <span>Nazarí</span></button>
-            <button class="century-btn" onclick="selectCentury('XIV', 'Consolidación')">XIV <span>Esplendor</span></button>
-            <button class="century-btn" onclick="selectCentury('XV', 'Guerra de Granada')">XV <span>Ocaso</span></button>
-            <button class="century-btn" onclick="selectCentury('XVI', 'Resurrección Morisca')">XVI <span>Memoria</span></button>
-            <button class="century-btn" onclick="selectCentury('XVII', 'Expulsión y Legado')">XVII <span>Diáspora</span></button>
-            <button class="century-btn" onclick="selectCentury('XVIII', 'Redescubrimiento')">XVIII <span>Arqueología</span></button>
-            <button class="century-btn" onclick="selectCentury('XIX', 'El Mito Romántico')">XIX <span>Orientalismo</span></button>
+        <div class="category-links">
+            <button class="cat-btn" onclick="deepQuery('Político')">Político</button>
+            <button class="cat-btn" onclick="deepQuery('Social')">Social</button>
+            <button class="cat-btn" onclick="deepQuery('Económico')">Económico</button>
+            <button class="cat-btn" onclick="deepQuery('Cultural')">Cultural</button>
         </div>
-
-        <div id="cat-container">
-            <div class="category-card" onclick="queryAmbito('Económico', '🪙')">
-                <span class="cat-icon">🪙</span>
-                <h3>Economía</h3>
-                <p>Dinámicas de mercado, moneda y redes comerciales mercantiles.</p>
-            </div>
-            <div class="category-card" onclick="queryAmbito('Social', '🤝')">
-                <span class="cat-icon">🤝</span>
-                <h3>Sociedad</h3>
-                <p>Estructura civil, demografía y modelos de convivencia urbana.</p>
-            </div>
-            <div class="category-card" onclick="queryAmbito('Cultural', '🎨')">
-                <span class="cat-icon">🎨</span>
-                <h3>Cultura</h3>
-                <p>Arte, ciencia, arquitectura y la evolución del pensamiento.</p>
-            </div>
-            <div class="category-card" onclick="queryAmbito('Político', '⚔️')">
-                <span class="cat-icon">⚔️</span>
-                <h3>Política</h3>
-                <p>Gobernanza, conflictos dinásticos y geoestrategia territorial.</p>
-            </div>
-        </div>
-
-        <div id="loader-wrapper" class="loader-wrapper">
-            <div class="loader"></div>
-            <p style="color: var(--gold); letter-spacing: 3px; font-size: 0.8rem;">CONSULTANDO SERVIDOR MCP...</p>
-        </div>
-
-        <div id="results" class="results-panel">
-            <div class="ficha-header">
-                <div>
-                    <div class="ficha-badge" id="badge-label">SÍNTESIS GENERADA</div>
-                    <h2 id="century-label" style="font-size: 3rem; margin-top: 1rem;">Siglo X</h2>
-                </div>
-                <div class="source-box" id="source-label">
-                    RESOURCE_MASTER_ID: NOOR_X_CULT
-                </div>
-            </div>
-
-            <div class="ficha-body" id="ficha-text">
-                <!-- Content injected here -->
-            </div>
-
-            <div class="suggestions">
-                <div class="suggest-chip">¿Cómo influyó esto en el periodo siguiente?</div>
-                <div class="suggest-chip">Comparar con estándares Wos 2026</div>
-                <div class="suggest-chip">Analizar impacto en la arquitectura actual</div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        NOOR PROJECT &copy; 2026 / SISTEMA DE GESTIÓN DEL CONOCIMIENTO AVANZADO
-    </footer>
+    </div>
 
     <script>
-        let currentCent = '';
-        let currentCentName = '';
+        const riverPath = document.getElementById('main-river');
+        const centuries = [
+            { num: 'X', label: 'El Califato', desc: 'Córdoba como centro del mundo' },
+            { num: 'XI', label: 'Las Taifas', desc: 'Fragmentación y florecimiento' },
+            { num: 'XII', label: 'Imperios Africanos', desc: 'Almorávides y Almohades' },
+            { num: 'XIII', label: 'Guerra y Reconquista', desc: 'El avance cristiano' },
+            { num: 'XIV', label: 'Reino de Granada', desc: 'El esplendor de la Alhambra' },
+            { num: 'XV', label: 'El Final de una Era', desc: '1492 y la rendición' },
+            { num: 'XVI', label: 'Memoria Morisca', desc: 'El legado persistente' },
+            { num: 'XVII', label: 'Diáspora', desc: 'La expulsión definitiva' },
+            { num: 'XVIII', label: 'Arqueología del Saber', desc: 'La Ilustración redescubierta' },
+            { num: 'XIX', label: 'El Mito Romántico', desc: 'Washington Irving y los viajeros' }
+        ];
 
-        function selectCentury(val, name) {
-            currentCent = val;
-            currentCentName = name;
+        let currentS = '';
+
+        function setupNodes() {
+            const container = document.querySelector('.river-container');
+            const pathLength = riverPath.getTotalLength();
             
-            document.querySelectorAll('.century-btn').forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            
-            const cats = document.getElementById('cat-container');
-            cats.classList.add('visible');
-            cats.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            centuries.forEach((c, index) => {
+                const fraction = (index + 0.5) / centuries.length;
+                const point = riverPath.getPointAtLength(fraction * pathLength);
+                
+                const node = document.createElement('div');
+                node.className = 'node';
+                node.style.left = point.x + 'px';
+                node.style.top = point.y + 'px';
+                node.onclick = () => openModal(c.num, c.label);
+                
+                node.innerHTML = `
+                    <div class="node-circle"></div>
+                    <div class="node-label">Siglo ${c.num}</div>
+                    <div class="node-desc">${c.label}</div>
+                `;
+                
+                container.appendChild(node);
+            });
         }
 
-        function queryAmbito(ambito, icon) {
-            if(!currentCent) return;
+        function openModal(siglo, label) {
+            currentS = siglo;
+            document.getElementById('m-title').innerText = `Siglo ${siglo} - ${label}`;
+            document.getElementById('m-body').innerText = `Has llegado a una sección clave del Nilo. Selecciona una dimensión para que Nil bucee en los archivos específicos del Siglo ${siglo}.`;
+            document.getElementById('info-modal').classList.add('active');
+        }
 
-            const loader = document.getElementById('loader-wrapper');
-            const results = document.getElementById('results');
+        function closeModal() {
+            document.getElementById('info-modal').classList.remove('active');
+        }
+
+        function deepQuery(ambito) {
+            const loader = document.getElementById('loader');
+            const msg = document.getElementById('loader-msg');
+            const locations = ['Córdoba', 'Sevilla', 'Granada', 'Toledo', 'Almería'];
+            const randomLoc = locations[Math.floor(Math.random()*locations.length)];
             
-            loader.style.display = 'block';
-            results.style.display = 'none';
-
-            // Deep Query Logic Simulation
+            msg.innerText = `Nil está buceando en los archivos de ${randomLoc}...`;
+            loader.style.display = 'flex';
+            
             setTimeout(() => {
                 loader.style.display = 'none';
-                results.style.display = 'block';
-                
-                document.getElementById('century-label').innerText = `${currentCent} / ${currentCentName}`;
-                document.getElementById('source-label').innerText = `NOTEBOOK_LM: SIGLO_${currentCent}_${ambito.toUpperCase()}`;
-                
-                const responses = {
-                    'Económico': "La infraestructura económica del siglo " + currentCent + " se basó en una red de alquerías altamente eficiente y una industria textil que exportaba a todo el mundo conocido. El cuaderno MCP detalla registros de transacciones en dinares de alta pureza.",
-                    'Social': "Socialmente, el siglo " + currentCent + " destaca por un modelo de gobernanza que priorizaba la estabilidad urbana. Se observa una creciente especialización en los gremios de Medina Azahara y las metrópolis cercanas.",
-                    'Cultural': "En el plano cultural, este periodo se define por la 'Traducción y Transmisión'. El sistema detecta una explosión en la producción de tratados médicos y astronómicos que sentaron las bases del Renacimiento posterior.",
-                    'Político': "Bajo la lupa política, el siglo " + currentCent + " muestra tensiones fronterizas constantes equilibradas por una diplomacia sofisticada. Los recursos técnicos indican que la administración territorial fue pionera en su época."
-                };
-
-                document.getElementById('ficha-text').innerHTML = `<span style="color: var(--gold); font-weight: 700;">ÁMBITO ${ambito.toUpperCase()}:</span><br><br>` + responses[ambito];
-                results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 1500);
+                document.getElementById('m-body').innerHTML = `<span style="color: var(--nil-cyan)">NIL REPORT (S.${currentS} / ${ambito}):</span><br><br>La corriente nos muestra que en el siglo ${currentS}, el ámbito ${ambito} fue determinante para la evolución de la madre de las culturas. Los registros recuperados de NotebookLM confirman una infraestructura de conocimiento sin precedentes.`;
+            }, 1800);
         }
+
+        window.onload = setupNodes;
+
+        // Custom Flow Scroll Effect
+        window.addEventListener('scroll', () => {
+            const flow = document.getElementById('flow-line');
+            const dash = 2000;
+            // logic to animate line could go here
+        });
+
     </script>
 </body>
 </html>
