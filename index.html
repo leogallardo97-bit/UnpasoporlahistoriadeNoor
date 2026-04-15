@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Andalus Meta-Agent | Biblioteca Técnica de Gestión del Conocimiento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0c10;
+            --card-glass: rgba(255, 255, 255, 0.03);
+            --gold: #d4af37;
+            --gold-bright: #f4d03f;
+            --teal: #1abc9c;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-gradient: linear-gradient(135deg, #d4af37 0%, #1abc9c 100%);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05), transparent),
+                              radial-gradient(circle at bottom left, rgba(26, 188, 156, 0.05), transparent);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Nav */
+        nav {
+            padding: 2rem;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        header {
+            height: 70vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-video-mock {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 12, 16, 0.6), rgba(10, 12, 16, 1));
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* Centuries Slider/Grid */
+        .scenarium {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .century-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 6rem;
+        }
+
+        .century-btn {
+            background: var(--card-glass);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .century-btn span {
+            font-size: 0.8rem;
+            margin-top: 8px;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .century-btn:hover, .century-btn.active {
+            border-color: var(--gold);
+            color: #fff;
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateY(-8px);
+        }
+
+        .century-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            width: 30%;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 10px;
+        }
+
+        /* Category System */
+        #cat-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        #cat-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .category-card {
+            background: var(--card-glass);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(20px);
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .cat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+        }
+
+        .category-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .category-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Results Panel / Alpha Interface */
+        .results-panel {
+            margin-top: 8rem;
+            padding: 5rem;
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: none;
+            animation: slideUp 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ficha-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 2rem;
+        }
+
+        .ficha-badge {
+            background: var(--accent-gradient);
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #000;
+            text-transform: uppercase;
+        }
+
+        .source-box {
+            background: #12141a;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            font-family: monospace;
+            color: var(--teal);
+        }
+
+        .ficha-body {
+            font-size: 1.4rem;
+            line-height: 1.7;
+            color: #f0f0f0;
+            margin-bottom: 4rem;
+            max-width: 1000px;
+        }
+
+        .suggestions {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .suggest-chip {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background: transparent;
+            color: var(--text-muted);
+        }
+
+        .suggest-chip:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* Loading */
+        .loader-wrapper {
+            display: none;
+            text-align: center;
+            margin: 5rem 0;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212, 175, 55, 0.15);
+            border-top: 4px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s infinite cubic-bezier(0.5, 0, 0.5, 1);
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        footer {
+            padding: 6rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        /* Patterns */
+        .pattern-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="pattern-overlay"></div>
+
+    <nav>
+        <div class="logo">NOOR / ARCHIVE</div>
+        <div style="font-size: 0.8rem; letter-spacing: 2px;">V2.0.46 BETA</div>
+    </nav>
+
+    <header>
+        <div class="hero-video-mock"></div>
+        <div class="hero-content">
+            <h1>Explora Al-Andalus con Inteligencia</h1>
+            <p>Accede a la biblioteca técnica gestionada por MCP. Un puente entre la investigación JCR y la síntesis generativa.</p>
+        </div>
+    </header>
+
+    <main class="scenarium">
+        <div class="section-header">
+            <h2>01 / Línea de Tiempo</h2>
+        </div>
+
+        <div class="century-grid">
+            <button class="century-btn" onclick="selectCentury('X', 'Califato de Córdoba')">X <span>Califato</span></button>
+            <button class="century-btn" onclick="selectCentury('XI', 'Primeras Taifas')">XI <span>Taifas</span></button>
+            <button class="century-btn" onclick="selectCentury('XII', 'Almorávides/Almohades')">XII <span>Imperios</span></button>
+            <button class="century-btn" onclick="selectCentury('XIII', 'Reino de Granada')">XIII <span>Nazarí</span></button>
+            <button class="century-btn" onclick="selectCentury('XIV', 'Consolidación')">XIV <span>Esplendor</span></button>
+            <button class="century-btn" onclick="selectCentury('XV', 'Guerra de Granada')">XV <span>Ocaso</span></button>
+            <button class="century-btn" onclick="selectCentury('XVI', 'Resurrección Morisca')">XVI <span>Memoria</span></button>
+            <button class="century-btn" onclick="selectCentury('XVII', 'Expulsión y Legado')">XVII <span>Diáspora</span></button>
+            <button class="century-btn" onclick="selectCentury('XVIII', 'Redescubrimiento')">XVIII <span>Arqueología</span></button>
+            <button class="century-btn" onclick="selectCentury('XIX', 'El Mito Romántico')">XIX <span>Orientalismo</span></button>
+        </div>
+
+        <div id="cat-container">
+            <div class="category-card" onclick="queryAmbito('Económico', '🪙')">
+                <span class="cat-icon">🪙</span>
+                <h3>Economía</h3>
+                <p>Dinámicas de mercado, moneda y redes comerciales mercantiles.</p>
+            </div>
+            <div class="category-card" onclick="queryAmbito('Social', '🤝')">
+                <span class="cat-icon">🤝</span>
+                <h3>Sociedad</h3>
+                <p>Estructura civil, demografía y modelos de convivencia urbana.</p>
+            </div>
+            <div class="category-card" onclick="queryAmbito('Cultural', '🎨')">
+                <span class="cat-icon">🎨</span>
+                <h3>Cultura</h3>
+                <p>Arte, ciencia, arquitectura y la evolución del pensamiento.</p>
+            </div>
+            <div class="category-card" onclick="queryAmbito('Político', '⚔️')">
+                <span class="cat-icon">⚔️</span>
+                <h3>Política</h3>
+                <p>Gobernanza, conflictos dinásticos y geoestrategia territorial.</p>
+            </div>
+        </div>
+
+        <div id="loader-wrapper" class="loader-wrapper">
+            <div class="loader"></div>
+            <p style="color: var(--gold); letter-spacing: 3px; font-size: 0.8rem;">CONSULTANDO SERVIDOR MCP...</p>
+        </div>
+
+        <div id="results" class="results-panel">
+            <div class="ficha-header">
+                <div>
+                    <div class="ficha-badge" id="badge-label">SÍNTESIS GENERADA</div>
+                    <h2 id="century-label" style="font-size: 3rem; margin-top: 1rem;">Siglo X</h2>
+                </div>
+                <div class="source-box" id="source-label">
+                    RESOURCE_MASTER_ID: NOOR_X_CULT
+                </div>
+            </div>
+
+            <div class="ficha-body" id="ficha-text">
+                <!-- Content injected here -->
+            </div>
+
+            <div class="suggestions">
+                <div class="suggest-chip">¿Cómo influyó esto en el periodo siguiente?</div>
+                <div class="suggest-chip">Comparar con estándares Wos 2026</div>
+                <div class="suggest-chip">Analizar impacto en la arquitectura actual</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        NOOR PROJECT &copy; 2026 / SISTEMA DE GESTIÓN DEL CONOCIMIENTO AVANZADO
+    </footer>
+
+    <script>
+        let currentCent = '';
+        let currentCentName = '';
+
+        function selectCentury(val, name) {
+            currentCent = val;
+            currentCentName = name;
+            
+            document.querySelectorAll('.century-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            const cats = document.getElementById('cat-container');
+            cats.classList.add('visible');
+            cats.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function queryAmbito(ambito, icon) {
+            if(!currentCent) return;
+
+            const loader = document.getElementById('loader-wrapper');
+            const results = document.getElementById('results');
+            
+            loader.style.display = 'block';
+            results.style.display = 'none';
+
+            // Deep Query Logic Simulation
+            setTimeout(() => {
+                loader.style.display = 'none';
+                results.style.display = 'block';
+                
+                document.getElementById('century-label').innerText = `${currentCent} / ${currentCentName}`;
+                document.getElementById('source-label').innerText = `NOTEBOOK_LM: SIGLO_${currentCent}_${ambito.toUpperCase()}`;
+                
+                const responses = {
+                    'Económico': "La infraestructura económica del siglo " + currentCent + " se basó en una red de alquerías altamente eficiente y una industria textil que exportaba a todo el mundo conocido. El cuaderno MCP detalla registros de transacciones en dinares de alta pureza.",
+                    'Social': "Socialmente, el siglo " + currentCent + " destaca por un modelo de gobernanza que priorizaba la estabilidad urbana. Se observa una creciente especialización en los gremios de Medina Azahara y las metrópolis cercanas.",
+                    'Cultural': "En el plano cultural, este periodo se define por la 'Traducción y Transmisión'. El sistema detecta una explosión en la producción de tratados médicos y astronómicos que sentaron las bases del Renacimiento posterior.",
+                    'Político': "Bajo la lupa política, el siglo " + currentCent + " muestra tensiones fronterizas constantes equilibradas por una diplomacia sofisticada. Los recursos técnicos indican que la administración territorial fue pionera en su época."
+                };
+
+                document.getElementById('ficha-text').innerHTML = `<span style="color: var(--gold); font-weight: 700;">ÁMBITO ${ambito.toUpperCase()}:</span><br><br>` + responses[ambito];
+                results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
