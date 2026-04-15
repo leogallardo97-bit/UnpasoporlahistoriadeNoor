@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noor Archive Nil | Al-Andalus</title>
+    <title>Noor Archive Nil | El Paseo de Noor</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=JetBrains+Mono:wght@300;500&family=Outfit:wght@100;300;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -25,8 +25,8 @@
         }
 
         #nil-cursor {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: var(--nil-cyan);
             border-radius: 50%;
             position: fixed;
@@ -38,42 +38,44 @@
 
         #nil-guide {
             position: fixed;
-            bottom: 50px;
-            right: 50px;
+            bottom: 40px;
+            right: 40px;
             z-index: 1000;
         }
 
         .nil-avatar {
-            width: 45px;
-            height: 60px;
+            width: 40px;
+            height: 55px;
             background: linear-gradient(transparent, var(--nil-cyan));
             border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
             animation: drift 4s ease-in-out infinite;
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
+            filter: blur(1px);
         }
 
         @keyframes drift {
-            0%, 100% { transform: scale(1) translateY(0) rotate(0deg); }
-            50% { transform: scale(1.1) translateY(-15px) rotate(5deg); }
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.1) translateY(-10px); }
         }
 
         .nil-speech {
             position: absolute;
-            bottom: 80px;
+            bottom: 70px;
             right: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             border: 1px solid var(--nil-cyan);
-            padding: 1rem;
+            padding: 0.8rem 1.2rem;
             border-radius: 12px;
             color: var(--nil-cyan);
-            font-size: 0.8rem;
-            width: 250px;
+            font-size: 0.75rem;
+            width: 220px;
             opacity: 0;
             transition: var(--transition-fluid);
             pointer-events: none;
+            backdrop-filter: blur(10px);
         }
 
-        #nil-guide:hover .nil-speech { opacity: 1; transform: translateY(-10px); }
+        #nil-guide:hover .nil-speech { opacity: 1; transform: translateY(-5px); }
 
         header {
             height: 100vh;
@@ -81,13 +83,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0 15%;
+            padding: 0 10%;
             text-align: center;
         }
 
         header h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 6rem;
+            font-size: 5rem;
             font-weight: 300;
             color: var(--noor-gold);
             margin-bottom: 2rem;
@@ -95,92 +97,153 @@
         }
 
         .slogan {
-            font-size: 1.4rem;
-            letter-spacing: 5px;
+            font-size: 1.3rem;
+            letter-spacing: 4px;
             font-weight: 100;
             color: var(--text-off);
-            line-height: 1.6;
+            max-width: 800px;
         }
 
         .nile-container {
             position: relative;
             width: 100%;
-            height: 6000px;
+            height: 3500px; /* Acortamos el scroll */
+            margin-top: -10vh;
         }
 
-        .nile-path-bg { fill: none; stroke: rgba(212, 175, 55, 0.05); stroke-width: 2; }
-        .nile-path-active { fill: none; stroke: var(--nil-cyan); stroke-width: 1; opacity: 0.4; }
+        .nile-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
 
+        .nile-path-main {
+            fill: none;
+            stroke: var(--nil-cyan);
+            stroke-width: 1.5;
+            opacity: 0.15;
+            stroke-dasharray: 5, 10;
+        }
+
+        /* --- Era Nodes --- */
         .era-node {
             position: absolute;
-            z-index: 10;
+            z-index: 100;
             transform: translate(-50%, -50%);
             display: flex;
+            flex-direction: column;
             align-items: center;
+            cursor: pointer;
         }
 
         .era-dot {
-            width: 15px;
-            height: 15px;
-            border: 1px solid var(--noor-gold);
+            width: 30px;
+            height: 30px;
             background: var(--bg);
+            border: 1px solid var(--nil-cyan);
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fluid);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        }
+
+        .era-node:hover .era-dot {
+            background: var(--nil-cyan);
+            box-shadow: 0 0 40px var(--nil-cyan);
+            transform: scale(1.2);
+        }
+
+        .era-label {
+            position: absolute;
+            top: 40px;
+            text-align: center;
+            white-space: nowrap;
             transition: var(--transition-fluid);
         }
 
-        .era-node:hover .era-dot { background: var(--noor-gold); transform: scale(1.5); }
+        .era-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--noor-gold);
+            letter-spacing: 2px;
+        }
 
-        .era-content { position: absolute; left: 40px; min-width: 400px; pointer-events: none; }
-        .era-name { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: #fff; margin-bottom: 0.5rem; }
-        .era-cta { font-size: 0.8rem; letter-spacing: 3px; color: var(--noor-gold); text-transform: uppercase; font-weight: 100; }
+        .era-cta {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            color: var(--text-off);
+            text-transform: uppercase;
+            font-weight: 200;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: var(--transition-fluid);
+        }
 
-        #data-panel {
+        .era-node:hover .era-cta { opacity: 1; transform: translateY(0); }
+
+        /* --- Panel de Información --- */
+        #info-panel {
             position: fixed;
             top: 0;
             right: -100%;
-            width: 40%;
+            width: 45%;
             height: 100%;
-            background: rgba(10, 10, 10, 0.98);
-            border-left: 1px solid var(--noor-gold);
+            background: rgba(10, 10, 10, 0.96);
+            backdrop-filter: blur(40px);
+            border-left: 1px solid rgba(212, 175, 55, 0.1);
             z-index: 2000;
             padding: 6rem 4rem;
             transition: var(--transition-fluid);
             overflow-y: auto;
         }
 
-        #data-panel.active { right: 0; }
+        #info-panel.active { right: 0; }
+        .close-btn { position: absolute; top: 30px; left: 40px; color: var(--noor-gold); cursor: pointer; font-size: 2.5rem; font-weight: 100; }
 
-        .panel-close { position: absolute; top: 30px; left: 40px; color: var(--noor-gold); cursor: pointer; font-size: 2rem; }
-
-        .data-header { margin-bottom: 3rem; }
-        .data-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--noor-gold); }
-        .data-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-off); font-weight: 200; }
-
-        .category-tab {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
+        .btn-tabs { display: flex; gap: 1rem; margin: 3rem 0; flex-wrap: wrap; }
         .tab-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            color: var(--noor-gold);
-            padding: 0.6rem 1.2rem;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            color: var(--nil-cyan);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-size: 0.7rem;
             transition: var(--transition-fluid);
         }
 
-        .tab-btn:hover { background: var(--noor-gold); color: #000; }
+        .tab-btn:hover { background: var(--nil-cyan); color: #000; }
 
-        @keyframes scan { from { left: -100%; } to { left: 100%; } }
+        .content-area { font-size: 1.2rem; line-height: 1.8; color: var(--text-off); font-weight: 200; }
+        .content-area b { color: var(--noor-gold); font-weight: 400; }
 
-        #loader {
+        /* --- Dev Mode --- */
+        #dev-console {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 30%;
+            height: 100%;
+            background: rgba(0, 15, 10, 0.98);
+            z-index: 3000;
+            padding: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #0f0;
+            font-size: 0.7rem;
+            border-right: 1px solid #0f0;
+            transition: var(--transition-fluid);
+        }
+        #dev-console.active { left: 0; }
+
+        /* --- Loader --- */
+        #init-loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg);
@@ -190,100 +253,81 @@
             align-items: center;
             justify-content: center;
         }
-
-        .dev-terminal {
-            position: fixed;
-            left: -100%;
-            top: 0;
-            width: 30%;
-            height: 100%;
-            background: rgba(0, 15, 20, 0.95);
-            z-index: 4000;
-            border-right: 2px solid var(--nil-cyan);
-            padding: 2rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--nil-cyan);
-            transition: var(--transition-fluid);
-        }
-
-        .dev-terminal.active { left: 0; }
-        .log-line { font-size: 0.65rem; margin-bottom: 4px; opacity: 0.6; }
-
     </style>
 </head>
 <body>
 
     <div id="nil-cursor"></div>
 
-    <div id="loader">
-        <div style="width: 250px; height: 1px; background: rgba(0, 242, 255, 0.1); position: relative; overflow: hidden;">
-            <div id="loader-bar" style="width: 0%; height: 100%; background: var(--nil-cyan); box-shadow: 0 0 15px var(--nil-cyan); transiton: width 0.3s;"></div>
+    <div id="init-loader">
+        <div style="width: 150px; height: 1px; background: rgba(0, 242, 255, 0.1); position: relative;">
+            <div id="load-bar" style="width: 0%; height: 100%; background: var(--nil-cyan); box-shadow: 0 0 10px var(--nil-cyan);"></div>
         </div>
-        <p id="loader-text" style="color: var(--nil-cyan); font-family: 'JetBrains Mono'; font-size: 0.6rem; letter-spacing: 6px; margin-top: 2rem;">SINCRO: NIL_PROTOCOL_V.4</p>
+        <p style="margin-top: 2rem; color: var(--nil-cyan); font-family: 'JetBrains Mono'; font-size: 0.6rem; letter-spacing: 8px;">CALIBRANDO RÍO NIL</p>
     </div>
 
-    <div id="dev-terminal" class="dev-terminal">
-        <h4 style="margin-bottom: 2rem;">BRIDGE_MCP_LOGS</h4>
-        <div id="log-list"></div>
+    <div id="dev-console">
+        <h4 style="margin-bottom: 2rem; border-bottom: 1px solid #0f0;">BRIDGE_LOG_STREAM</h4>
+        <div id="logs"></div>
     </div>
 
     <div id="nil-guide">
-        <div class="nil-speech" id="nil-msg">Hola, soy Nil y te acompañaré en este viaje.</div>
+        <div class="nil-speech" id="nil-txt">Hola, soy Nil y te acompañaré en este viaje.</div>
         <div class="nil-avatar"></div>
     </div>
 
     <header>
-        <div style="font-family: 'JetBrains Mono'; color: var(--noor-gold); letter-spacing: 15px; font-size: 0.7rem; margin-bottom: 1rem;">NOOR ARCHIVE NIL</div>
+        <div style="font-family: 'JetBrains Mono'; color: var(--noor-gold); letter-spacing: 12px; font-size: 0.8rem; margin-bottom: 1rem;">NOOR ARCHIVE NIL</div>
         <h1>"Un paso por la historia que se convirtió en la madre de culturas de Occidente: Al-Andalus"</h1>
-        <p class="slogan">La luz que fluye a través del tiempo.</p>
+        <p class="slogan">Navegando el cauce de la memoria andalusí.</p>
     </header>
 
     <div class="nile-container">
-        <svg class="nile-svg" viewBox="0 0 1000 6000" preserveAspectRatio="none">
-            <path id="nile-river" class="nile-path-bg" d="M 500 0 C 800 500 200 1000 500 1500 S 800 2500 500 3000 S 200 4000 500 4500 S 800 5500 500 6000" />
+        <svg class="nile-svg" viewBox="0 0 1000 3500" preserveAspectRatio="none">
+            <!-- Nilo meandroso optimizado -->
+            <path id="river" class="nile-path-main" d="M 500 0 C 850 300 150 600 500 900 C 850 1200 150 1500 500 1800 C 850 2100 150 2400 500 2700 C 850 3000 150 3300 500 3500" />
         </svg>
-        <div id="nodes"></div>
+        <div id="river-nodes"></div>
     </div>
 
-    <div id="data-panel">
-        <div class="panel-close" onclick="togglePanel(false)">&times;</div>
-        <div class="data-header">
-            <h2 id="p-title">Siglo X</h2>
-            <p id="p-subtitle" style="color: var(--nil-cyan); font-family: 'JetBrains Mono'; font-size: 0.7rem; margin-top: 10px;">ID_RESOURCE: NOTEBOOK_LM_MASTER</p>
+    <div id="info-panel">
+        <div class="close-btn" onclick="togglePanel(false)">&times;</div>
+        <div style="margin-bottom: 3rem;">
+            <h2 id="era-title" style="font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--noor-gold);">Siglo X</h2>
+            <p id="era-sub" style="font-family: 'JetBrains Mono'; color: var(--nil-cyan); font-size: 0.65rem; letter-spacing: 3px; margin-top: 10px;">ID_RESOURCE: NOTEBOOK_LM_ACTIVE</p>
         </div>
 
-        <div class="category-tab">
+        <div class="btn-tabs">
             <button class="tab-btn" onclick="fetchMCP('Político')">Político</button>
             <button class="tab-btn" onclick="fetchMCP('Social')">Social</button>
             <button class="tab-btn" onclick="fetchMCP('Económico')">Económico</button>
             <button class="tab-btn" onclick="fetchMCP('Cultural')">Cultural</button>
         </div>
 
-        <div class="data-body" id="p-content">
-            Selecciona una dimensión de saber para que Nil bucee en los archivos.
+        <div class="content-area" id="panel-body">
+            Desplaza a Nil por los archivos para revelar el saber...
         </div>
     </div>
 
     <script>
-        const eras = [
-            { s: 'X', label: 'Califato de Córdoba', cta: 'Descifra los pergaminos de la biblioteca de Al-Hakam II...' },
-            { s: 'XI', label: 'Cortes de Taifas', cta: 'Explora la fragmentación del poder en las cortes de taifas...' },
-            { s: 'XII', label: 'Imperios Africanos', cta: 'Cruza el desierto con los ejércitos almorávides y almohades...' },
-            { s: 'XIII', label: 'Cimientos Nazaríes', cta: 'Sigue el rastro de la seda hacia los cimientos de la Alhambra...' },
-            { s: 'XIV', label: 'Generalife', cta: 'Escucha el murmullo de las aguas en el Generalife...' },
-            { s: 'XV', label: 'Capitulaciones', cta: 'Escucha los ecos finales de las Capitulaciones de Granada...' },
-            { s: 'XVI', label: 'Memoria Morisca', cta: 'Observa la resistencia de la lengua ante el olvido morisco...' },
-            { s: 'XVII', label: 'Diáspora', cta: 'Rastrea la huella andalusí en los exilios del Magreb...' },
-            { s: 'XVIII', label: 'Arqueología', cta: 'Ilumina las ruinas romanas bajo la mirada ilustrada...' },
-            { s: 'XIX', label: 'Mito Romántico', cta: 'Redescubre el romanticismo en los cuentos de la Alhambra...' }
+        const timeline = [
+            { s: 'X', tag: 'Califato', cta: 'Descifra los pergaminos de Al-Hakam II...' },
+            { s: 'XI', tag: 'Taifas', cta: 'Explora la fragmentación del poder...' },
+            { s: 'XII', tag: 'Imperios', cta: 'Cruza el desierto con los Almohades...' },
+            { s: 'XIII', tag: 'Granada', cta: 'Sigue el rastro de la seda...' },
+            { s: 'XIV', tag: 'Esplendor', cta: 'Escucha las aguas del Generalife...' },
+            { s: 'XV', tag: 'El Ocaso', cta: 'Ecos finales de las Capitulaciones...' },
+            { s: 'XVI', tag: 'Moriscos', cta: 'Resistencia de la lengua y el rito...' },
+            { s: 'XVII', tag: 'Diáspora', cta: 'Rastrea la huella en el Magreb...' },
+            { s: 'XVIII', tag: 'Ruinas', cta: 'Ilumina los vestigios arqueológicos...' },
+            { s: 'XIX', tag: 'Viajeros', cta: 'El mito romántico de la Alhambra...' }
         ];
 
-        // MCP Intelligence Data (Baking in Century X info from real calls)
-        const sX_Intelligence = {
-            'Político': "<b>1. Epifanía Califal (929 d.C.):</b> Abd al-Rahmān III se proclama Califa para contrarrestar la amenaza fatimí, usando una simbología mística de 'Sol Ascendente'.<br><br><b>2. Pax Omeya:</b> La derrota definitiva de Bobastro (928) permitió una economía de lealtades basada en el regalo de piezas de marfil áulicas.<br><br><b>3. Crepúsculo Amirí:</b> El ascenso de Almanzor militarizó el estado, importando mercenarios bereberes que fracturaron el tejido social y causaron la futura <i>fitna</i>.",
-            'Social': "<b>1. Explosión Urbana:</b> Las almunias se convirtieron en arrabales de casas estandarizadas para absorber el crecimiento demográfico de Córdoba.<br><br><b>2. Elite Saqaliba:</b> Los califas empoderaron a esclavos y eunucos europeos para neutralizar a la nobleza árabe tradicional.<br><br><b>3. Ortopraxia Alimentaria:</b> La arqueología en Cercadilla muestra la desaparición del cerdo, señalando una asimilación cultural profunda incluso en comunidades cristianas.",
-            'Económico': "<b>1. El Dinar de Oro:</b> El control de Siŷilmāsa (Magreb) aseguró el flujo de oro sudanés, permitiendo monedas de 979 milésimas de pureza.<br><br><b>2. Red de Alquerías:</b> La producción de seda en Ilbīra fue el motor fiscal del estado.<br><br><b>3. Comercio Transmediterráneo:</b> Los pecios andalusíes en Francia demuestran exportaciones masivas de aceite, cerámica e incluso lino hacia Bagdad.",
-            'Cultural': "<b>1. El Monstruo Bibliográfico:</b> La biblioteca de Al-Hakam II albergaba 400.000 volúmenes con 44 índices de 20 páginas cada uno.<br><br><b>2. Arquitectura de Legitimidad:</b> Madīnat al-Zahrāʾ aplicó geometría avanzada para simular sillería de lujo con mampostería económica.<br><br><b>3. Transculturalidad:</b> Sabios judíos como Hasday b. Shaprut lideraron la filología hebrea bajo mecenazgo califal, integrando el saber griego a la corte."
+        const sX_Data = {
+            'Político': "<b>1. Soberanía Califal (929 d.C.):</b> Abd al-Raḥmān III establece el Califato para romper con Oriente y frenar a los fatimíes.<br><br><b>2. Pax Omeya:</b> Consolidación interna tras Bobastro.<br><br><b>3. Amanzorismo:</b> Transición a una dictadura militarizada basada en la <i>Yihad</i>.",
+            'Social': "<b>1. Arrabales de Córdoba:</b> Planificación urbana masiva para integrar a la nueva burguesía artesana.<br><br><b>2. Guardia Saqaliba:</b> Uso de élites europeas para neutralizar linajes árabes.<br><br><b>3. IslamizaciónSocial:</b> Integración profunda de tabúes y ritos en la vida urbana.",
+            'Económico': "<b>1. Ceca de Oro:</b> Dinares de 979 milésimas gracias al control de Sijilmasa.<br><br><b>2. La Seda:</b> Monopolio de exportación hacia Bagdad y Bizancio.<br><br><b>3. Alquerías:</b> Red fiscal y agraria altamente tecnificada.",
+            'Cultural': "<b>1. 400.000 Volúmenes:</b> La biblioteca de Al-Hakam II como centro mundial del saber.<br><br><b>2. Madīnat al-Zahrāʾ:</b> Innovación en materiales y geometría áulica.<br><br><b>3. Medicina y Astronomía:</b> Fusión de saberes griegos y orientales."
         };
 
         const cursor = document.getElementById('nil-cursor');
@@ -292,94 +336,82 @@
             cursor.style.top = e.clientY + 'px'; 
         });
 
-        function setupNile() {
-            const path = document.getElementById('nile-river');
-            const nodes = document.getElementById('nodes');
-            const len = path.getTotalLength();
+        function buildRiver() {
+            const path = document.getElementById('river');
+            const nodes = document.getElementById('river-nodes');
+            const pathLen = path.getTotalLength();
 
-            eras.forEach((era, i) => {
-                const fraction = (i + 0.3) / eras.length;
-                const p = path.getPointAtLength(fraction * len);
+            timeline.forEach((era, i) => {
+                const fraction = (i + 0.3) / timeline.length;
+                const point = path.getPointAtLength(fraction * pathLen);
+                
                 const node = document.createElement('div');
                 node.className = 'era-node';
-                node.style.left = p.x + 'px';
-                node.style.top = p.y + 'px';
+                node.style.left = point.x + 'px';
+                node.style.top = point.y + 'px';
                 node.innerHTML = `
                     <div class="era-dot"></div>
-                    <div class="era-content">
-                        <p class="era-name">Siglo ${era.s}</p>
-                        <p class="era-cta">${era.cta}</p>
+                    <div class="era-label">
+                        <div class="era-name">S.${era.s}</div>
+                        <div class="era-cta">${era.cta}</div>
                     </div>
                 `;
                 node.onclick = () => {
-                    document.getElementById('p-title').innerText = `Siglo ${era.s} - ${era.label}`;
+                    document.getElementById('era-title').innerText = `Siglo ${era.s} - ${era.tag}`;
                     togglePanel(true);
                 };
                 nodes.appendChild(node);
             });
         }
 
-        function togglePanel(open) {
-            document.getElementById('data-panel').classList.toggle('active', open);
-        }
+        function togglePanel(show) { document.getElementById('info-panel').classList.toggle('active', show); }
 
         function fetchMCP(ambito) {
-            const content = document.getElementById('p-content');
-            const msg = document.getElementById('nil-msg');
-            const loaderMsgs = [
-                "Nil está buceando en los archivos de Córdoba...",
-                "Sincronizando los astrolabios del conocimiento...",
-                "Nil fluye a través de los meandros del tiempo...",
-                "Consultando el Monstruo Bibliográfico de Al-Hakam II..."
-            ];
+            const body = document.getElementById('panel-body');
+            const nil = document.getElementById('nil-txt');
+            nil.innerText = `Nil está buceando en los archivos de ${ambito}...`;
+            body.innerHTML = "<p style='color: var(--nil-cyan);'>Buscando...</p>";
             
-            msg.innerText = loaderMsgs[Math.floor(Math.random()*loaderMsgs.length)];
-            content.innerHTML = "<p style='color: var(--nil-cyan);'>Buceando...</p>";
-            
-            systemLog(`BRIDGE_MCP: QUERY_RESOURCE_ID(SIGLO_X_${ambito.toUpperCase()})`);
+            addLog(`BRIDGE_MCP: FETCH_RESOURCE_S${document.getElementById('era-title').innerText.split(' ')[1]}_${ambito.toUpperCase()}`);
 
             setTimeout(() => {
-                if(sX_Intelligence[ambito] && document.getElementById('p-title').innerText.includes('Siglo X')) {
-                    content.innerHTML = sX_Intelligence[ambito];
-                    systemLog(`STATUS: SUCCESS -> DATA_RETRIEVED_FROM_NOTEBOOKLM`);
+                if(document.getElementById('era-title').innerText.includes('Siglo X')) {
+                    body.innerHTML = sX_Data[ambito];
+                    addLog("STATUS: DATA_LOADED_OK");
                 } else {
-                    content.innerHTML = `Explorando las sombras del Siglo... El conocimiento sobre ${ambito} aún reside en las profundidades.`;
+                    body.innerHTML = `Conectando con la fuente... El meandro del Siglo todavía guarda sus secretos.`;
                 }
-            }, 1200);
+            }, 1000);
+        }
+
+        function addLog(msg) {
+            const l = document.getElementById('logs');
+            const d = document.createElement('div');
+            d.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            d.style.marginBottom = "5px";
+            l.prepend(d);
         }
 
         // Easter Egg
-        let keys = "";
+        let sequence = "";
         document.addEventListener('keydown', e => {
-            keys += e.key.toUpperCase();
-            if(keys.includes("LOG")) {
-                document.getElementById('dev-terminal').classList.toggle('active');
-                keys = "";
-                systemLog("DEV_MODE: SYSTEM_ACCESS_OVERRIDE");
+            sequence += e.key.toUpperCase();
+            if(sequence.includes("LOG")) {
+                document.getElementById('dev-console').classList.toggle('active');
+                sequence = "";
             }
-            if(keys.length > 10) keys = "";
+            if(sequence.length > 5) sequence = "";
         });
 
-        function systemLog(txt) {
-            const list = document.getElementById('log-list');
-            const div = document.createElement('div');
-            div.className = 'log-line';
-            div.innerText = `[${new Date().toLocaleTimeString()}] ${txt}`;
-            list.prepend(div);
-        }
-
         window.onload = () => {
-            setupNile();
+            buildRiver();
             let p = 0;
-            const bar = document.getElementById('loader-bar');
-            const int = setInterval(() => {
-                p += 5;
+            const bar = document.getElementById('load-bar');
+            const interval = setInterval(() => {
+                p += 10;
                 bar.style.width = p + "%";
-                if(p >= 100) {
-                    clearInterval(int);
-                    setTimeout(() => document.getElementById('loader').style.display='none', 500);
-                }
-            }, 50);
+                if(p >= 100) { clearInterval(interval); document.getElementById('init-loader').style.display='none'; }
+            }, 60);
         };
     </script>
 </body>
