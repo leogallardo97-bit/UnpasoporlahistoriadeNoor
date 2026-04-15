@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Noor Archive Nil | El Paseo de Noor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=JetBrains+Mono:wght@300;500&family=Outfit:wght@100;300;600&display=swap" rel="stylesheet">
+    <title>Noor Archive Nil | Al-Andalus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,700;1,300;1,700&family=JetBrains+Mono:wght@100;300;500&family=Outfit:wght@100;300;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0a0a0a;
@@ -16,20 +16,15 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Cursor solo en PC */
         @media (pointer: fine) {
             * { cursor: none; }
             #nil-cursor { display: block; }
         }
         #nil-cursor {
-            display: none;
-            width: 8px; height: 8px;
-            background: var(--nil-cyan);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            box-shadow: 0 0 20px var(--nil-cyan);
+            display: none; width: 10px; height: 10px;
+            background: var(--nil-cyan); border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            box-shadow: 0 0 25px var(--nil-cyan);
         }
 
         body {
@@ -37,52 +32,79 @@
             color: #fff;
             font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            background-image: radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.02) 0%, transparent 80%);
         }
 
-        #nil-guide { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
+        /* --- Nil Guide --- */
+        #nil-guide { position: fixed; bottom: 40px; right: 40px; z-index: 1000; }
         .nil-avatar {
-            width: 40px; height: 50px;
-            background: linear-gradient(transparent, var(--nil-cyan));
+            width: 45px; height: 60px;
+            background: linear-gradient(var(--nil-cyan), transparent);
             border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
             animation: drift 4s ease-in-out infinite;
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
+            filter: blur(1px); opacity: 0.9;
+            box-shadow: 0 0 20px var(--nil-cyan);
         }
-        @keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes drift { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
 
-        .nil-speech {
-            position: absolute; bottom: 65px; right: 0;
-            background: rgba(0,0,0,0.9); border: 1px solid var(--nil-cyan);
-            padding: 0.8rem; border-radius: 12px; color: var(--nil-cyan);
-            font-size: 0.7rem; width: 200px; opacity: 0;
-            transition: var(--transition-fluid); pointer-events: none;
-        }
-        #nil-guide:hover .nil-speech { opacity: 1; }
-
+        /* --- Header / UI Hero --- */
         header {
-            height: 90vh;
+            height: 100vh;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-            padding: 0 5%; text-align: center;
+            text-align: center; padding: 0 5%;
         }
 
-        header h1 {
+        .header-graphic {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .header-graphic .main-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 10vw, 5rem);
-            color: var(--noor-gold); margin-bottom: 1rem;
-            font-style: italic; font-weight: 300;
+            font-size: clamp(3.5rem, 12vw, 8rem);
+            font-weight: 700;
+            font-style: italic;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, var(--noor-gold), #fff, var(--nil-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 0.9;
+        }
+
+        .header-graphic .sub-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 20px;
+            color: var(--nil-cyan);
+            text-transform: uppercase;
+            margin-top: -10px;
+            opacity: 0.6;
         }
 
         .slogan {
-            font-size: clamp(0.9rem, 4vw, 1.2rem);
-            letter-spacing: 3px; color: var(--text-off);
-            max-width: 600px; font-weight: 100;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            letter-spacing: 1px;
+            color: var(--text-off);
+            max-width: 800px;
+            line-height: 1.6;
+            margin-top: 2rem;
         }
 
-        .nile-container { position: relative; width: 100%; height: 3500px; margin-top: 5vh; }
-        .nile-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .nile-path-main { fill: none; stroke: var(--nil-cyan); stroke-width: 1; opacity: 0.2; stroke-dasharray: 4, 8; }
+        /* --- The Nile (Curvas Pronunciadas) --- */
+        .nile-container { position: relative; width: 100%; height: 3500px; }
+        .nile-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .nile-line {
+            fill: none;
+            stroke: var(--nil-cyan);
+            stroke-width: 2;
+            opacity: 0.4;
+            filter: drop-shadow(0 0 8px var(--nil-cyan));
+        }
 
+        /* --- Era Nodes --- */
         .era-node {
             position: absolute; z-index: 100;
             transform: translate(-50%, -50%);
@@ -91,167 +113,175 @@
         }
 
         .era-dot {
-            width: 24px; height: 24px;
-            background: var(--bg); border: 1px solid var(--nil-cyan);
-            border-radius: 50%; transition: var(--transition-fluid);
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+            width: 14px; height: 14px;
+            background: var(--nil-cyan);
+            border-radius: 50%;
+            transition: var(--transition-fluid);
+            box-shadow: 0 0 20px var(--nil-cyan);
         }
-        .era-node:hover .era-dot { background: var(--nil-cyan); box-shadow: 0 0 30px var(--nil-cyan); }
 
-        .era-label { position: absolute; top: 35px; text-align: center; white-space: nowrap; }
+        .era-node:hover .era-dot {
+            transform: scale(2.5);
+            background: var(--noor-gold);
+            box-shadow: 0 0 50px var(--noor-gold);
+        }
+
+        .era-label {
+            position: absolute;
+            left: 30px;
+            text-align: left;
+            pointer-events: none;
+        }
+
         .era-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
-            color: var(--noor-gold);
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(0,0,0,1);
         }
-        .era-cta { font-size: 0.6rem; letter-spacing: 2px; color: var(--text-off); opacity: 0.6; }
 
-        /* Responsividad del Panel */
+        /* --- Panel Interactivo --- */
         #info-panel {
             position: fixed; top: 0; right: -100%;
             width: 45%; height: 100%;
             background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(40px);
+            backdrop-filter: blur(50px);
+            z-index: 2000; padding: 6rem 4rem;
             border-left: 1px solid rgba(212, 175, 55, 0.1);
-            z-index: 2000; padding: 5rem 3rem;
-            transition: var(--transition-fluid); overflow-y: auto;
+            transition: var(--transition-fluid);
         }
 
         @media (max-width: 768px) {
-            #info-panel { width: 100%; padding: 4rem 2rem; border-left: none; border-top: 1px solid var(--noor-gold); }
-            header h1 { font-size: 3rem; }
-            .era-name { font-size: 1.8rem; }
+            #info-panel { width: 100%; border-left: none; }
+            .era-label { left: 0; top: 30px; text-align: center; }
         }
 
         #info-panel.active { right: 0; }
-        .close-btn { position: absolute; top: 20px; left: 20px; color: var(--noor-gold); cursor: pointer; font-size: 2rem; }
+        .close-x { position: absolute; top: 30px; left: 40px; color: var(--noor-gold); font-size: 3rem; cursor: pointer; }
 
-        .btn-tabs { display: flex; gap: 0.8rem; margin: 2rem 0; flex-wrap: wrap; }
+        .tabs { display: flex; gap: 1rem; margin: 3rem 0; flex-wrap: wrap; }
         .tab-btn {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 242, 255, 0.2);
-            color: var(--nil-cyan); padding: 0.6rem 1rem; border-radius: 8px;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 2px; font-size: 0.65rem; transition: var(--transition-fluid);
+            background: transparent; border: 1px solid var(--nil-cyan);
+            color: var(--nil-cyan); padding: 0.8rem 1.5rem; border-radius: 4px;
+            text-transform: uppercase; font-size: 0.7rem; letter-spacing: 3px;
+            cursor: pointer; transition: var(--transition-fluid);
         }
         .tab-btn:hover { background: var(--nil-cyan); color: #000; }
 
-        .content-area { font-size: 1.1rem; line-height: 1.6; color: var(--text-off); font-weight: 200; }
+        .body-text { font-size: 1.3rem; line-height: 1.8; color: var(--text-off); font-weight: 200; }
+        .body-text b { color: var(--noor-gold); font-weight: 700; }
 
+        /* --- Dev mode --- */
         #dev-console {
-            position: fixed; left: -100%; top: 0; width: 300px; height: 100%;
-            background: rgba(0, 15, 10, 0.98); z-index: 3000; padding: 2rem;
-            font-family: 'JetBrains Mono', monospace; color: #0f0; font-size: 0.65rem; border-right: 1px solid #0f0;
+            position: fixed; left: -100%; top: 0; width: 350px; height: 100%;
+            background: rgba(0, 10, 15, 0.95); z-index: 5000; padding: 2rem;
+            font-family: 'JetBrains Mono', monospace; color: var(--nil-cyan);
+            border-right: 1px solid var(--nil-cyan); font-size: 0.65rem;
             transition: var(--transition-fluid);
         }
         #dev-console.active { left: 0; }
-
-        #init-loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg); z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
     </style>
 </head>
 <body>
 
     <div id="nil-cursor"></div>
 
-    <div id="init-loader">
-        <div style="width: 100px; height: 1px; background: rgba(0,242,255,0.1); position: relative;">
-            <div id="load-bar" style="width: 0%; height: 100%; background: var(--nil-cyan);"></div>
-        </div>
-        <p style="margin-top: 1.5rem; color: var(--nil-cyan); font-family: 'JetBrains Mono'; font-size: 0.5rem; letter-spacing: 6px;">NIL_MOBILE_OPTIMIZATION</p>
-    </div>
-
     <div id="dev-console">
-        <h4 style="margin-bottom: 2rem;">LOG_STREAM</h4>
+        <h4 style="margin-bottom: 2rem; opacity: 0.6;">BRIDGE_STREAM_ACTIVE</h4>
         <div id="logs"></div>
     </div>
 
     <div id="nil-guide">
-        <div class="nil-speech">Nil te acompaña en este viaje móvil.</div>
         <div class="nil-avatar"></div>
     </div>
 
     <header>
-        <div style="font-family: 'JetBrains Mono'; color: var(--noor-gold); letter-spacing: 12px; font-size: 0.7rem; margin-bottom: 0.5rem;">NOOR ARCHIVE NIL</div>
-        <h1>"Un paso por la historia que se convirtió en la madre de culturas de Occidente: Al-Andalus"</h1>
-        <p class="slogan">La corriente de la memoria andalusí.</p>
+        <div class="header-graphic">
+            <h1 class="main-title">Noor Archive Nil</h1>
+            <div class="sub-title">Gestión del Conocimiento de Al-Andalus</div>
+        </div>
+        <p class="slogan">"Navegaremos por la historia que convierte Al-Andalus en la madre de culturas de occidente"</p>
     </header>
 
     <div class="nile-container">
         <svg class="nile-svg" viewBox="0 0 1000 3500" preserveAspectRatio="none">
-            <path id="river" class="nile-path-main" d="M 500 0 C 850 300 150 600 500 900 C 850 1200 150 1500 500 1800 C 850 2100 150 2400 500 2700 C 850 3000 150 3300 500 3500" />
+            <!-- Nilo con meandros más pronunciados -->
+            <path id="nile-path" class="nile-line" d="M 500 0 C 950 400 50 700 500 1100 C 950 1400 50 1800 500 2200 C 950 2500 50 2900 500 3300 C 700 3450 500 3500 500 3500" />
         </svg>
-        <div id="river-nodes"></div>
+        <div id="nodes"></div>
     </div>
 
     <div id="info-panel">
-        <div class="close-btn" onclick="togglePanel(false)">&times;</div>
-        <div style="margin-bottom: 2rem;">
-            <h2 id="era-title" style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--noor-gold);">Siglo X</h2>
-            <p style="font-family: 'JetBrains Mono'; color: var(--nil-cyan); font-size: 0.6rem; letter-spacing: 2px;">RECURSO: NOTEBOOK_LM</p>
+        <div class="close-x" onclick="toggle(false)">&times;</div>
+        <h2 id="p-title" style="font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--noor-gold);">Siglo X</h2>
+        <p style="color: var(--nil-cyan); font-family: 'JetBrains Mono'; font-size: 0.7rem; margin-top: 10px;">RESOURCE_KEY: NOTEBOOK_LM_X</p>
+        
+        <div class="tabs">
+            <button class="tab-btn" onclick="query('Político')">Político</button>
+            <button class="tab-btn" onclick="query('Social')">Social</button>
+            <button class="tab-btn" onclick="query('Económico')">Económico</button>
+            <button class="tab-btn" onclick="query('Cultural')">Cultural</button>
         </div>
-        <div class="btn-tabs">
-            <button class="tab-btn" onclick="fetchMCP('Político')">Político</button>
-            <button class="tab-btn" onclick="fetchMCP('Social')">Social</button>
-            <button class="tab-btn" onclick="fetchMCP('Económico')">Económico</button>
-            <button class="tab-btn" onclick="fetchMCP('Cultural')">Cultural</button>
+        
+        <div class="body-text" id="p-body">
+            Desplaza a Nil a través de los meandros para invocar el saber...
         </div>
-        <div class="content-area" id="panel-body">Selecciona una dimensión.</div>
     </div>
 
     <script>
         const timeline = [
             { s: 'X', tag: 'Califato' }, { s: 'XI', tag: 'Taifas' }, { s: 'XII', tag: 'Imperios' },
-            { s: 'XIII', tag: 'Granada' }, { s: 'XIV', tag: 'Esplendor' }, { s: 'XV', tag: 'El Ocaso' },
-            { s: 'XVI', tag: 'Moriscos' }, { s: 'XVII', tag: 'Diáspora' }, { s: 'XVIII', tag: 'Ruinas' },
-            { s: 'XIX', tag: 'Viajeros' }
+            { s: 'XIII', tag: 'Granada' }, { s: 'XIV', tag: 'Esplendor' }, { s: 'XV', tag: 'Ocaso' },
+            { s: 'XVI', tag: 'Memoria' }, { s: 'XVII', tag: 'Exilio' }, { s: 'XVIII', tag: 'Estudio' },
+            { s: 'XIX', tag: 'Mito' }
         ];
 
-        const sX_Data = {
-            'Político': "<b>1. Soberanía (929 d.C.):</b> Abd al-Raḥmān III establece el Califato.<br><br><b>2. Pax Omeya:</b> Consolidación tras Bobastro.",
-            'Social': "<b>1. Arrabales:</b> Urbanización masiva.<br><br><b>2. Saqaliba:</b> Elites europeas en la corte.",
-            'Económico': "<b>1. Dinar:</b> Moneda de 979 milésimas.<br><br><b>2. Seda:</b> Exportación mundial.",
-            'Cultural': "<b>1. Biblioteca:</b> 400.000 volúmenes de saber.<br><br><b>2. Arquitectura:</b> Madīnat al-Zahrāʾ."
+        const sX_Intelligence = {
+            'Político': "<b>1. Proclamación Califal:</b> Abd al-Raḥmān III establece el Califato en 929.<br><br><b>2. Dictadura de Almanzor:</b> Militarismo expansionista.",
+            'Social': "<b>1. Arrabales:</b> Urbanismo democrático andalusí.<br><br><b>2. Saqaliba:</b> Influencia de los esclavos europeos.",
+            'Económico': "<b>1. Dinero de Oro:</b> El dinar cordobés domina el Mediterráneo.<br><br><b>2. Seda:</b> Exportación a Bagdad.",
+            'Cultural': "<b>1. Biblioteca de Al-Hakam II:</b> 400.000 volúmenes.<br><br><b>2. Madīnat al-Zahrāʾ:</b> La ciudad palatina de luz."
         };
 
         const cursor = document.getElementById('nil-cursor');
-        document.addEventListener('mousemove', e => { 
-            cursor.style.left = e.clientX + 'px'; 
-            cursor.style.top = e.clientY + 'px'; 
-        });
+        document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
 
-        function buildRiver() {
-            const path = document.getElementById('river');
-            const nodes = document.getElementById('river-nodes');
-            const pathLen = path.getTotalLength();
+        function build() {
+            const path = document.getElementById('nile-path');
+            const nodes = document.getElementById('nodes');
+            const len = path.getTotalLength();
             timeline.forEach((era, i) => {
-                const frac = (i + 0.3) / timeline.length;
-                const p = path.getPointAtLength(frac * pathLen);
-                const node = document.createElement('div');
-                node.className = 'era-node';
-                node.style.left = p.x + 'px'; node.style.top = p.y + 'px';
-                node.innerHTML = `<div class="era-dot"></div><div class="era-label"><div class="era-name">S.${era.s}</div></div>`;
-                node.onclick = () => { document.getElementById('era-title').innerText = `Siglo ${era.s}`; togglePanel(true); };
-                nodes.appendChild(node);
+                const frac = (i + 0.2) / timeline.length;
+                const p = path.getPointAtLength(frac * len);
+                const div = document.createElement('div');
+                div.className = 'era-node';
+                div.style.left = p.x + 'px'; div.style.top = p.y + 'px';
+                div.innerHTML = `<div class="era-dot"></div><div class="era-label"><p class="era-name">Siglo ${era.s}</p></div>`;
+                div.onclick = () => { document.getElementById('p-title').innerText = `Siglo ${era.s}`; toggle(true); };
+                nodes.appendChild(div);
             });
         }
 
-        function togglePanel(show) { document.getElementById('info-panel').classList.toggle('active', show); }
+        function toggle(s) { document.getElementById('info-panel').classList.toggle('active', s); }
 
-        function fetchMCP(ambito) {
-            const b = document.getElementById('panel-body');
-            b.innerHTML = "...Buscando...";
+        function query(ambito) {
+            const b = document.getElementById('p-body');
+            b.innerHTML = "...Sincronizando con Nil...";
             setTimeout(() => {
-                if(document.getElementById('era-title').innerText.includes('Siglo X')) b.innerHTML = sX_Data[ambito];
-                else b.innerHTML = "Dato en proceso de sincronización.";
-            }, 800);
+                if(document.getElementById('p-title').innerText.includes('Siglo X')) b.innerHTML = sX_Intelligence[ambito];
+                else b.innerHTML = "Consultando con los astrolabios... El saber de este siglo aún está siendo decodificado.";
+            }, 1000);
         }
 
-        window.onload = () => {
-            buildRiver();
-            let p = 0; const bar = document.getElementById('load-bar');
-            const interval = setInterval(() => { p += 10; bar.style.width = p + "%"; if(p>=100) { clearInterval(interval); document.getElementById('init-loader').style.display='none'; } }, 50);
-        };
+        let keyStr = "";
+        document.addEventListener('keydown', e => {
+            keyStr += e.key.toUpperCase();
+            if(keyStr.includes("LOG")) document.getElementById('dev-console').classList.toggle('active');
+            if(keyStr.length > 5) keyStr = "";
+        });
+
+        window.onload = build;
     </script>
 </body>
 </html>
