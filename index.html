@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Noor Archive Nil | El Paseo de Noor</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=JetBrains+Mono:wght@300;500&family=Outfit:wght@100;300;600&display=swap" rel="stylesheet">
     <style>
@@ -14,7 +14,23 @@
             --transition-fluid: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Cursor solo en PC */
+        @media (pointer: fine) {
+            * { cursor: none; }
+            #nil-cursor { display: block; }
+        }
+        #nil-cursor {
+            display: none;
+            width: 8px; height: 8px;
+            background: var(--nil-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 20px var(--nil-cyan);
+        }
 
         body {
             background-color: var(--bg);
@@ -24,234 +40,113 @@
             background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
         }
 
-        #nil-cursor {
-            width: 8px;
-            height: 8px;
-            background: var(--nil-cyan);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            box-shadow: 0 0 20px var(--nil-cyan);
-            transition: transform 0.05s linear;
-        }
-
-        #nil-guide {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            z-index: 1000;
-        }
-
+        #nil-guide { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
         .nil-avatar {
-            width: 40px;
-            height: 55px;
+            width: 40px; height: 50px;
             background: linear-gradient(transparent, var(--nil-cyan));
             border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
             animation: drift 4s ease-in-out infinite;
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
-            filter: blur(1px);
         }
-
-        @keyframes drift {
-            0%, 100% { transform: scale(1) translateY(0); }
-            50% { transform: scale(1.1) translateY(-10px); }
-        }
+        @keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         .nil-speech {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid var(--nil-cyan);
-            padding: 0.8rem 1.2rem;
-            border-radius: 12px;
-            color: var(--nil-cyan);
-            font-size: 0.75rem;
-            width: 220px;
-            opacity: 0;
-            transition: var(--transition-fluid);
-            pointer-events: none;
-            backdrop-filter: blur(10px);
+            position: absolute; bottom: 65px; right: 0;
+            background: rgba(0,0,0,0.9); border: 1px solid var(--nil-cyan);
+            padding: 0.8rem; border-radius: 12px; color: var(--nil-cyan);
+            font-size: 0.7rem; width: 200px; opacity: 0;
+            transition: var(--transition-fluid); pointer-events: none;
         }
-
-        #nil-guide:hover .nil-speech { opacity: 1; transform: translateY(-5px); }
+        #nil-guide:hover .nil-speech { opacity: 1; }
 
         header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0 10%;
-            text-align: center;
+            height: 90vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 0 5%; text-align: center;
         }
 
         header h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 5rem;
-            font-weight: 300;
-            color: var(--noor-gold);
-            margin-bottom: 2rem;
-            font-style: italic;
+            font-size: clamp(2.5rem, 10vw, 5rem);
+            color: var(--noor-gold); margin-bottom: 1rem;
+            font-style: italic; font-weight: 300;
         }
 
         .slogan {
-            font-size: 1.3rem;
-            letter-spacing: 4px;
-            font-weight: 100;
-            color: var(--text-off);
-            max-width: 800px;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
+            letter-spacing: 3px; color: var(--text-off);
+            max-width: 600px; font-weight: 100;
         }
 
-        .nile-container {
-            position: relative;
-            width: 100%;
-            height: 3500px; /* Acortamos el scroll */
-            margin-top: -10vh;
-        }
+        .nile-container { position: relative; width: 100%; height: 3500px; margin-top: 5vh; }
+        .nile-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .nile-path-main { fill: none; stroke: var(--nil-cyan); stroke-width: 1; opacity: 0.2; stroke-dasharray: 4, 8; }
 
-        .nile-svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .nile-path-main {
-            fill: none;
-            stroke: var(--nil-cyan);
-            stroke-width: 1.5;
-            opacity: 0.15;
-            stroke-dasharray: 5, 10;
-        }
-
-        /* --- Era Nodes --- */
         .era-node {
-            position: absolute;
-            z-index: 100;
+            position: absolute; z-index: 100;
             transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex; flex-direction: column; align-items: center;
             cursor: pointer;
         }
 
         .era-dot {
-            width: 30px;
-            height: 30px;
-            background: var(--bg);
-            border: 1px solid var(--nil-cyan);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-fluid);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+            width: 24px; height: 24px;
+            background: var(--bg); border: 1px solid var(--nil-cyan);
+            border-radius: 50%; transition: var(--transition-fluid);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
         }
+        .era-node:hover .era-dot { background: var(--nil-cyan); box-shadow: 0 0 30px var(--nil-cyan); }
 
-        .era-node:hover .era-dot {
-            background: var(--nil-cyan);
-            box-shadow: 0 0 40px var(--nil-cyan);
-            transform: scale(1.2);
-        }
-
-        .era-label {
-            position: absolute;
-            top: 40px;
-            text-align: center;
-            white-space: nowrap;
-            transition: var(--transition-fluid);
-        }
-
+        .era-label { position: absolute; top: 35px; text-align: center; white-space: nowrap; }
         .era-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
             color: var(--noor-gold);
-            letter-spacing: 2px;
         }
+        .era-cta { font-size: 0.6rem; letter-spacing: 2px; color: var(--text-off); opacity: 0.6; }
 
-        .era-cta {
-            font-size: 0.65rem;
-            letter-spacing: 4px;
-            color: var(--text-off);
-            text-transform: uppercase;
-            font-weight: 200;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: var(--transition-fluid);
-        }
-
-        .era-node:hover .era-cta { opacity: 1; transform: translateY(0); }
-
-        /* --- Panel de Información --- */
+        /* Responsividad del Panel */
         #info-panel {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 45%;
-            height: 100%;
-            background: rgba(10, 10, 10, 0.96);
+            position: fixed; top: 0; right: -100%;
+            width: 45%; height: 100%;
+            background: rgba(10, 10, 10, 0.98);
             backdrop-filter: blur(40px);
             border-left: 1px solid rgba(212, 175, 55, 0.1);
-            z-index: 2000;
-            padding: 6rem 4rem;
-            transition: var(--transition-fluid);
-            overflow-y: auto;
+            z-index: 2000; padding: 5rem 3rem;
+            transition: var(--transition-fluid); overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            #info-panel { width: 100%; padding: 4rem 2rem; border-left: none; border-top: 1px solid var(--noor-gold); }
+            header h1 { font-size: 3rem; }
+            .era-name { font-size: 1.8rem; }
         }
 
         #info-panel.active { right: 0; }
-        .close-btn { position: absolute; top: 30px; left: 40px; color: var(--noor-gold); cursor: pointer; font-size: 2.5rem; font-weight: 100; }
+        .close-btn { position: absolute; top: 20px; left: 20px; color: var(--noor-gold); cursor: pointer; font-size: 2rem; }
 
-        .btn-tabs { display: flex; gap: 1rem; margin: 3rem 0; flex-wrap: wrap; }
+        .btn-tabs { display: flex; gap: 0.8rem; margin: 2rem 0; flex-wrap: wrap; }
         .tab-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            color: var(--nil-cyan);
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.7rem;
-            transition: var(--transition-fluid);
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 242, 255, 0.2);
+            color: var(--nil-cyan); padding: 0.6rem 1rem; border-radius: 8px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 2px; font-size: 0.65rem; transition: var(--transition-fluid);
         }
-
         .tab-btn:hover { background: var(--nil-cyan); color: #000; }
 
-        .content-area { font-size: 1.2rem; line-height: 1.8; color: var(--text-off); font-weight: 200; }
-        .content-area b { color: var(--noor-gold); font-weight: 400; }
+        .content-area { font-size: 1.1rem; line-height: 1.6; color: var(--text-off); font-weight: 200; }
 
-        /* --- Dev Mode --- */
         #dev-console {
-            position: fixed;
-            left: -100%;
-            top: 0;
-            width: 30%;
-            height: 100%;
-            background: rgba(0, 15, 10, 0.98);
-            z-index: 3000;
-            padding: 2rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: #0f0;
-            font-size: 0.7rem;
-            border-right: 1px solid #0f0;
+            position: fixed; left: -100%; top: 0; width: 300px; height: 100%;
+            background: rgba(0, 15, 10, 0.98); z-index: 3000; padding: 2rem;
+            font-family: 'JetBrains Mono', monospace; color: #0f0; font-size: 0.65rem; border-right: 1px solid #0f0;
             transition: var(--transition-fluid);
         }
         #dev-console.active { left: 0; }
 
-        /* --- Loader --- */
         #init-loader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg);
-            z-index: 5000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
     </style>
 </head>
@@ -260,31 +155,30 @@
     <div id="nil-cursor"></div>
 
     <div id="init-loader">
-        <div style="width: 150px; height: 1px; background: rgba(0, 242, 255, 0.1); position: relative;">
-            <div id="load-bar" style="width: 0%; height: 100%; background: var(--nil-cyan); box-shadow: 0 0 10px var(--nil-cyan);"></div>
+        <div style="width: 100px; height: 1px; background: rgba(0,242,255,0.1); position: relative;">
+            <div id="load-bar" style="width: 0%; height: 100%; background: var(--nil-cyan);"></div>
         </div>
-        <p style="margin-top: 2rem; color: var(--nil-cyan); font-family: 'JetBrains Mono'; font-size: 0.6rem; letter-spacing: 8px;">CALIBRANDO RÍO NIL</p>
+        <p style="margin-top: 1.5rem; color: var(--nil-cyan); font-family: 'JetBrains Mono'; font-size: 0.5rem; letter-spacing: 6px;">NIL_MOBILE_OPTIMIZATION</p>
     </div>
 
     <div id="dev-console">
-        <h4 style="margin-bottom: 2rem; border-bottom: 1px solid #0f0;">BRIDGE_LOG_STREAM</h4>
+        <h4 style="margin-bottom: 2rem;">LOG_STREAM</h4>
         <div id="logs"></div>
     </div>
 
     <div id="nil-guide">
-        <div class="nil-speech" id="nil-txt">Hola, soy Nil y te acompañaré en este viaje.</div>
+        <div class="nil-speech">Nil te acompaña en este viaje móvil.</div>
         <div class="nil-avatar"></div>
     </div>
 
     <header>
-        <div style="font-family: 'JetBrains Mono'; color: var(--noor-gold); letter-spacing: 12px; font-size: 0.8rem; margin-bottom: 1rem;">NOOR ARCHIVE NIL</div>
+        <div style="font-family: 'JetBrains Mono'; color: var(--noor-gold); letter-spacing: 12px; font-size: 0.7rem; margin-bottom: 0.5rem;">NOOR ARCHIVE NIL</div>
         <h1>"Un paso por la historia que se convirtió en la madre de culturas de Occidente: Al-Andalus"</h1>
-        <p class="slogan">Navegando el cauce de la memoria andalusí.</p>
+        <p class="slogan">La corriente de la memoria andalusí.</p>
     </header>
 
     <div class="nile-container">
         <svg class="nile-svg" viewBox="0 0 1000 3500" preserveAspectRatio="none">
-            <!-- Nilo meandroso optimizado -->
             <path id="river" class="nile-path-main" d="M 500 0 C 850 300 150 600 500 900 C 850 1200 150 1500 500 1800 C 850 2100 150 2400 500 2700 C 850 3000 150 3300 500 3500" />
         </svg>
         <div id="river-nodes"></div>
@@ -292,42 +186,32 @@
 
     <div id="info-panel">
         <div class="close-btn" onclick="togglePanel(false)">&times;</div>
-        <div style="margin-bottom: 3rem;">
-            <h2 id="era-title" style="font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--noor-gold);">Siglo X</h2>
-            <p id="era-sub" style="font-family: 'JetBrains Mono'; color: var(--nil-cyan); font-size: 0.65rem; letter-spacing: 3px; margin-top: 10px;">ID_RESOURCE: NOTEBOOK_LM_ACTIVE</p>
+        <div style="margin-bottom: 2rem;">
+            <h2 id="era-title" style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--noor-gold);">Siglo X</h2>
+            <p style="font-family: 'JetBrains Mono'; color: var(--nil-cyan); font-size: 0.6rem; letter-spacing: 2px;">RECURSO: NOTEBOOK_LM</p>
         </div>
-
         <div class="btn-tabs">
             <button class="tab-btn" onclick="fetchMCP('Político')">Político</button>
             <button class="tab-btn" onclick="fetchMCP('Social')">Social</button>
             <button class="tab-btn" onclick="fetchMCP('Económico')">Económico</button>
             <button class="tab-btn" onclick="fetchMCP('Cultural')">Cultural</button>
         </div>
-
-        <div class="content-area" id="panel-body">
-            Desplaza a Nil por los archivos para revelar el saber...
-        </div>
+        <div class="content-area" id="panel-body">Selecciona una dimensión.</div>
     </div>
 
     <script>
         const timeline = [
-            { s: 'X', tag: 'Califato', cta: 'Descifra los pergaminos de Al-Hakam II...' },
-            { s: 'XI', tag: 'Taifas', cta: 'Explora la fragmentación del poder...' },
-            { s: 'XII', tag: 'Imperios', cta: 'Cruza el desierto con los Almohades...' },
-            { s: 'XIII', tag: 'Granada', cta: 'Sigue el rastro de la seda...' },
-            { s: 'XIV', tag: 'Esplendor', cta: 'Escucha las aguas del Generalife...' },
-            { s: 'XV', tag: 'El Ocaso', cta: 'Ecos finales de las Capitulaciones...' },
-            { s: 'XVI', tag: 'Moriscos', cta: 'Resistencia de la lengua y el rito...' },
-            { s: 'XVII', tag: 'Diáspora', cta: 'Rastrea la huella en el Magreb...' },
-            { s: 'XVIII', tag: 'Ruinas', cta: 'Ilumina los vestigios arqueológicos...' },
-            { s: 'XIX', tag: 'Viajeros', cta: 'El mito romántico de la Alhambra...' }
+            { s: 'X', tag: 'Califato' }, { s: 'XI', tag: 'Taifas' }, { s: 'XII', tag: 'Imperios' },
+            { s: 'XIII', tag: 'Granada' }, { s: 'XIV', tag: 'Esplendor' }, { s: 'XV', tag: 'El Ocaso' },
+            { s: 'XVI', tag: 'Moriscos' }, { s: 'XVII', tag: 'Diáspora' }, { s: 'XVIII', tag: 'Ruinas' },
+            { s: 'XIX', tag: 'Viajeros' }
         ];
 
         const sX_Data = {
-            'Político': "<b>1. Soberanía Califal (929 d.C.):</b> Abd al-Raḥmān III establece el Califato para romper con Oriente y frenar a los fatimíes.<br><br><b>2. Pax Omeya:</b> Consolidación interna tras Bobastro.<br><br><b>3. Amanzorismo:</b> Transición a una dictadura militarizada basada en la <i>Yihad</i>.",
-            'Social': "<b>1. Arrabales de Córdoba:</b> Planificación urbana masiva para integrar a la nueva burguesía artesana.<br><br><b>2. Guardia Saqaliba:</b> Uso de élites europeas para neutralizar linajes árabes.<br><br><b>3. IslamizaciónSocial:</b> Integración profunda de tabúes y ritos en la vida urbana.",
-            'Económico': "<b>1. Ceca de Oro:</b> Dinares de 979 milésimas gracias al control de Sijilmasa.<br><br><b>2. La Seda:</b> Monopolio de exportación hacia Bagdad y Bizancio.<br><br><b>3. Alquerías:</b> Red fiscal y agraria altamente tecnificada.",
-            'Cultural': "<b>1. 400.000 Volúmenes:</b> La biblioteca de Al-Hakam II como centro mundial del saber.<br><br><b>2. Madīnat al-Zahrāʾ:</b> Innovación en materiales y geometría áulica.<br><br><b>3. Medicina y Astronomía:</b> Fusión de saberes griegos y orientales."
+            'Político': "<b>1. Soberanía (929 d.C.):</b> Abd al-Raḥmān III establece el Califato.<br><br><b>2. Pax Omeya:</b> Consolidación tras Bobastro.",
+            'Social': "<b>1. Arrabales:</b> Urbanización masiva.<br><br><b>2. Saqaliba:</b> Elites europeas en la corte.",
+            'Económico': "<b>1. Dinar:</b> Moneda de 979 milésimas.<br><br><b>2. Seda:</b> Exportación mundial.",
+            'Cultural': "<b>1. Biblioteca:</b> 400.000 volúmenes de saber.<br><br><b>2. Arquitectura:</b> Madīnat al-Zahrāʾ."
         };
 
         const cursor = document.getElementById('nil-cursor');
@@ -340,26 +224,14 @@
             const path = document.getElementById('river');
             const nodes = document.getElementById('river-nodes');
             const pathLen = path.getTotalLength();
-
             timeline.forEach((era, i) => {
-                const fraction = (i + 0.3) / timeline.length;
-                const point = path.getPointAtLength(fraction * pathLen);
-                
+                const frac = (i + 0.3) / timeline.length;
+                const p = path.getPointAtLength(frac * pathLen);
                 const node = document.createElement('div');
                 node.className = 'era-node';
-                node.style.left = point.x + 'px';
-                node.style.top = point.y + 'px';
-                node.innerHTML = `
-                    <div class="era-dot"></div>
-                    <div class="era-label">
-                        <div class="era-name">S.${era.s}</div>
-                        <div class="era-cta">${era.cta}</div>
-                    </div>
-                `;
-                node.onclick = () => {
-                    document.getElementById('era-title').innerText = `Siglo ${era.s} - ${era.tag}`;
-                    togglePanel(true);
-                };
+                node.style.left = p.x + 'px'; node.style.top = p.y + 'px';
+                node.innerHTML = `<div class="era-dot"></div><div class="era-label"><div class="era-name">S.${era.s}</div></div>`;
+                node.onclick = () => { document.getElementById('era-title').innerText = `Siglo ${era.s}`; togglePanel(true); };
                 nodes.appendChild(node);
             });
         }
@@ -367,51 +239,18 @@
         function togglePanel(show) { document.getElementById('info-panel').classList.toggle('active', show); }
 
         function fetchMCP(ambito) {
-            const body = document.getElementById('panel-body');
-            const nil = document.getElementById('nil-txt');
-            nil.innerText = `Nil está buceando en los archivos de ${ambito}...`;
-            body.innerHTML = "<p style='color: var(--nil-cyan);'>Buscando...</p>";
-            
-            addLog(`BRIDGE_MCP: FETCH_RESOURCE_S${document.getElementById('era-title').innerText.split(' ')[1]}_${ambito.toUpperCase()}`);
-
+            const b = document.getElementById('panel-body');
+            b.innerHTML = "...Buscando...";
             setTimeout(() => {
-                if(document.getElementById('era-title').innerText.includes('Siglo X')) {
-                    body.innerHTML = sX_Data[ambito];
-                    addLog("STATUS: DATA_LOADED_OK");
-                } else {
-                    body.innerHTML = `Conectando con la fuente... El meandro del Siglo todavía guarda sus secretos.`;
-                }
-            }, 1000);
+                if(document.getElementById('era-title').innerText.includes('Siglo X')) b.innerHTML = sX_Data[ambito];
+                else b.innerHTML = "Dato en proceso de sincronización.";
+            }, 800);
         }
-
-        function addLog(msg) {
-            const l = document.getElementById('logs');
-            const d = document.createElement('div');
-            d.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
-            d.style.marginBottom = "5px";
-            l.prepend(d);
-        }
-
-        // Easter Egg
-        let sequence = "";
-        document.addEventListener('keydown', e => {
-            sequence += e.key.toUpperCase();
-            if(sequence.includes("LOG")) {
-                document.getElementById('dev-console').classList.toggle('active');
-                sequence = "";
-            }
-            if(sequence.length > 5) sequence = "";
-        });
 
         window.onload = () => {
             buildRiver();
-            let p = 0;
-            const bar = document.getElementById('load-bar');
-            const interval = setInterval(() => {
-                p += 10;
-                bar.style.width = p + "%";
-                if(p >= 100) { clearInterval(interval); document.getElementById('init-loader').style.display='none'; }
-            }, 60);
+            let p = 0; const bar = document.getElementById('load-bar');
+            const interval = setInterval(() => { p += 10; bar.style.width = p + "%"; if(p>=100) { clearInterval(interval); document.getElementById('init-loader').style.display='none'; } }, 50);
         };
     </script>
 </body>
