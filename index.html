@@ -3,94 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noor Archive Nil | Al-Andalus</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700&family=Cormorant+Garamond:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
+    <title>Noor Archive Nil | El Paseo de Noor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=JetBrains+Mono:wght@300;500&family=Outfit:wght@100;300;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0a0a0a;
             --nil-cyan: #00f2ff;
-            --califal-gold: #d4af37;
-            --text-silver: #d1d1d1;
-            --glass: rgba(255, 255, 255, 0.02);
-            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --noor-gold: #d4af37;
+            --text-off: #a0a0a0;
+            --transition-fluid: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
-            color: var(--text-silver);
+            color: #fff;
             font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Efecto grano sutil */
         }
 
-        /* --- Nil Entity --- */
-        #nil-avatar {
+        /* --- Custom Cursor --- */
+        #nil-cursor {
+            width: 12px;
+            height: 12px;
+            background: var(--nil-cyan);
+            border-radius: 50%;
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 60px;
-            height: 60px;
-            z-index: 1000;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nil-drop {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 30%, var(--nil-cyan), transparent);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-            animation: float 4s ease-in-out infinite, ripple 3s linear infinite;
-            position: relative;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-15px) scale(1.05); }
-        }
-
-        @keyframes ripple {
-            0% { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; }
-            50% { border-radius: 45% 55% 45% 55% / 55% 45% 55% 45%; }
-            100% { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; }
-        }
-
-        .nil-bubble {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            padding: 1rem 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            width: 300px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: var(--transition);
             pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 15px var(--nil-cyan);
+            transition: transform 0.1s ease;
+        }
+
+        /* --- Nil Guiding Entity --- */
+        #nil-guide {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .nil-avatar {
+            width: 50px;
+            height: 70px;
+            background: linear-gradient(var(--nil-cyan), transparent);
+            border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+            animation: drift 5s ease-in-out infinite;
+            filter: blur(2px);
+            opacity: 0.8;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.1) translateY(-10px); }
+        }
+
+        .nil-speech {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 1.2rem;
+            border-radius: 15px;
             color: var(--nil-cyan);
-            font-weight: 300;
-            font-size: 0.95rem;
-            text-align: right;
+            font-size: 0.9rem;
+            max-width: 250px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: var(--transition-fluid);
         }
 
-        #nil-avatar:hover .nil-bubble {
+        #nil-guide:hover .nil-speech {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
         }
 
-        /* --- Layout --- */
+        /* --- Header / Hero --- */
         header {
             height: 100vh;
             display: flex;
@@ -98,351 +91,319 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 2rem;
-            position: relative;
-            z-index: 5;
+            padding: 0 10%;
+        }
+
+        .title-pre {
+            color: var(--noor-gold);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            margin-bottom: 2rem;
+            font-size: 0.8rem;
         }
 
         header h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 5rem;
-            letter-spacing: 4px;
-            color: var(--califal-gold);
-            margin-bottom: 2rem;
-            font-weight: 400;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 3rem;
+            font-style: italic;
         }
 
-        header p {
-            font-size: 1.3rem;
+        header .slogan {
+            font-size: 1.4rem;
+            color: var(--text-off);
             max-width: 800px;
             line-height: 1.8;
-            letter-spacing: 2px;
-            font-weight: 200;
-            opacity: 0.8;
+            font-weight: 100;
+            letter-spacing: 4px;
         }
 
-        /* --- Fluvial Path --- */
-        .river-container {
+        /* --- The Nile Path (Fluvial Navigation) --- */
+        .nile-container {
             position: relative;
             width: 100%;
-            height: 4000px; /* Longitud del viaje */
-            margin-top: -10vh;
+            height: 6000px;
         }
 
-        .river-svg {
+        .nile-svg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
             pointer-events: none;
         }
 
-        .river-path {
+        .nile-path-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.03);
+            stroke-width: 4;
+        }
+
+        .nile-path-active {
             fill: none;
             stroke: var(--nil-cyan);
             stroke-width: 2;
-            stroke-dasharray: 10, 20;
-            opacity: 0.15;
-        }
-
-        .nil-flow-line {
-            fill: none;
-            stroke: var(--nil-cyan);
-            stroke-width: 1;
-            opacity: 0.4;
             filter: blur(1px);
+            stroke-dasharray: 1;
+            stroke-dashoffset: 1;
+            transition: stroke-dashoffset 0.1s linear;
         }
 
-        /* --- Century Nodes --- */
-        .node {
+        /* --- Decade Nodes --- */
+        .era-node {
             position: absolute;
-            z-index: 10;
+            z-index: 100;
             transform: translate(-50%, -50%);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .node-circle {
-            width: 24px;
-            height: 24px;
-            background: var(--bg);
-            border: 2px solid var(--califal-gold);
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: var(--transition);
         }
 
-        .node:hover .node-circle {
-            background: var(--califal-gold);
-            transform: scale(1.5);
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+        .era-dot {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--noor-gold);
+            border-radius: 50%;
+            background: var(--bg);
+            transition: var(--transition-fluid);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
-        .node-label {
+        .era-node:hover .era-dot {
+            background: var(--noor-gold);
+            transform: scale(2);
+            box-shadow: 0 0 30px var(--noor-gold);
+        }
+
+        .era-content {
             position: absolute;
-            left: 40px;
-            white-space: nowrap;
-            color: var(--califal-gold);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            font-weight: 200;
-            text-transform: uppercase;
+            left: 50px;
+            min-width: 400px;
+            opacity: 0.6;
+            transition: var(--transition-fluid);
         }
 
-        .node-desc {
-            position: absolute;
-            left: 40px;
-            top: 30px;
-            white-space: nowrap;
-            color: var(--text-silver);
-            font-size: 0.8rem;
-            opacity: 0.5;
-            letter-spacing: 1px;
-        }
-
-        /* --- Info Card --- */
-        .info-card {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            width: 90%;
-            max-width: 800px;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(40px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 30px;
-            padding: 4rem;
-            z-index: 2000;
-            display: none;
-            opacity: 0;
-            transition: var(--transition);
-            box-shadow: 0 100px 200px rgba(0,0,0,1);
-        }
-
-        .info-card.active {
-            display: block;
+        .era-node:hover .era-content {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translateX(20px);
         }
 
-        .card-close {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--califal-gold);
-        }
-
-        .card-title {
+        .era-year {
             font-family: 'Cormorant Garamond', serif;
             font-size: 3rem;
-            color: var(--califal-gold);
-            margin-bottom: 2rem;
+            color: var(--noor-gold);
+            margin-bottom: 0.5rem;
         }
 
-        .card-body {
-            font-size: 1.2rem;
-            line-height: 1.9;
-            font-weight: 200;
-            color: #fff;
-            margin-bottom: 3rem;
-        }
-
-        .category-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .cat-btn {
-            background: var(--glass);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            color: var(--nil-cyan);
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
+        .era-cta {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 100;
+            letter-spacing: 3px;
+            color: var(--text-off);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 0.9rem;
         }
 
-        .cat-btn:hover {
-            background: rgba(0, 242, 255, 0.1);
-            border-color: var(--nil-cyan);
+        /* --- Modals --- */
+        #data-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 45%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(50px);
+            z-index: 2000;
+            border-left: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 8rem 5rem;
+            transition: var(--transition-fluid);
         }
+
+        #data-modal.active { right: 0; }
+
+        /* --- Dev Mode Easter Egg --- */
+        #dev-panel {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 30%;
+            height: 100%;
+            background: rgba(0, 20, 30, 0.95);
+            z-index: 3000;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 2rem;
+            border-right: 2px solid var(--nil-cyan);
+            color: var(--nil-cyan);
+            transition: var(--transition-fluid);
+        }
+
+        #dev-panel.active { left: 0; }
+
+        .log-entry { font-size: 0.7rem; margin-bottom: 5px; opacity: 0.7; }
+        .log-cyan { color: #0f0; }
 
         /* --- Loading Overlay --- */
         #loader {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg);
-            z-index: 3000;
-            display: none;
+            z-index: 5000;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-        }
-
-        #loader p {
-            color: var(--nil-cyan);
-            letter-spacing: 4px;
-            font-weight: 200;
-            margin-top: 2rem;
-        }
-
-        .loading-wave {
-            width: 100px;
-            height: 2px;
-            background: var(--nil-cyan);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 10px var(--nil-cyan);
-        }
-
-        .loading-wave::after {
-            content: '';
-            position: absolute;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, #fff, transparent);
-            animation: wave-run 1.5s infinite;
-        }
-
-        @keyframes wave-run {
-            100% { left: 100%; }
+            transition: opacity 1s;
         }
 
     </style>
 </head>
 <body>
 
+    <div id="nil-cursor"></div>
+
     <div id="loader">
-        <div class="loading-wave"></div>
-        <p id="loader-msg">Nil está buceando en los archivos de Córdoba...</p>
+        <div style="width: 200px; height: 1px; background: rgba(0,242,255,0.2); position: relative;">
+            <div id="loader-progress" style="width: 0%; height: 100%; background: var(--nil-cyan); box-shadow: 0 0 10px var(--nil-cyan);"></div>
+        </div>
+        <p id="loader-msg" style="margin-top: 2rem; font-family: 'JetBrains Mono'; font-size: 0.7rem; letter-spacing: 5px; color: var(--nil-cyan);">INICIANDO PROTOCOLO NOOR...</p>
     </div>
 
-    <div id="nil-avatar">
-        <div class="nil-bubble">Hola, soy Nil y te acompañaré en este viaje.</div>
-        <div class="nil-drop"></div>
+    <div id="dev-panel">
+        <h3 style="margin-bottom: 2rem;">[MCP_SYSTEM_BRIDGE_V.4]</h3>
+        <div id="log-stream"></div>
+    </div>
+
+    <div id="nil-guide">
+        <div class="nil-speech">Hola, soy Nil y te acompañaré en este viaje.</div>
+        <div class="nil-avatar"></div>
     </div>
 
     <header>
-        <h1>Noor Archive Nil</h1>
-        <p>"Un paso por la historia que se convirtió en la madre de culturas de Occidente: Al-Andalus"</p>
-        <div style="margin-top: 5rem; opacity: 0.3; letter-spacing: 5px;">DESLIZA PARA NAVEGAR EL RÍO DEL TIEMPO ↓</div>
+        <div class="title-pre">Noor Archive Nil</div>
+        <h1>"Un paso por la historia que se convirtió en la madre de culturas de Occidente: Al-Andalus"</h1>
+        <p class="slogan">Explora el flujo del conocimiento a través del Nilo de la memoria.</p>
     </header>
 
-    <div class="river-container">
-        <svg class="river-svg" viewBox="0 0 1000 4000">
-            <path id="main-river" class="river-path" d="M 500 0 Q 700 300 500 600 T 500 1200 T 500 1800 T 500 2400 T 500 3000 T 500 3600 T 500 4000" />
-            <path id="flow-line" class="nil-flow-line" d="" />
+    <div class="nile-container">
+        <svg class="nile-svg" viewBox="0 0 1000 6000" preserveAspectRatio="none">
+            <path id="nile-path-main" class="nile-path-bg" d="M 500 0 C 800 500 200 1000 500 1500 S 800 2500 500 3000 S 200 4000 500 4500 S 800 5500 500 6000" />
+            <path id="nile-path-flow" class="nile-path-active" d="M 500 0 C 800 500 200 1000 500 1500 S 800 2500 500 3000 S 200 4000 500 4500 S 800 5500 500 6000" />
         </svg>
 
-        <!-- Nodes will be injected here via JS -->
+        <div id="nodes-layer"></div>
     </div>
 
-    <div id="info-modal" class="info-card">
-        <div class="card-close" onclick="closeModal()">&times;</div>
-        <h2 class="card-title" id="m-title">Siglo X</h2>
-        <div class="card-body" id="m-body">
-            ...
-        </div>
-        <div class="category-links">
-            <button class="cat-btn" onclick="deepQuery('Político')">Político</button>
-            <button class="cat-btn" onclick="deepQuery('Social')">Social</button>
-            <button class="cat-btn" onclick="deepQuery('Económico')">Económico</button>
-            <button class="cat-btn" onclick="deepQuery('Cultural')">Cultural</button>
-        </div>
+    <div id="data-modal">
+        <div id="modal-content"></div>
     </div>
 
     <script>
-        const riverPath = document.getElementById('main-river');
-        const centuries = [
-            { num: 'X', label: 'El Califato', desc: 'Córdoba como centro del mundo' },
-            { num: 'XI', label: 'Las Taifas', desc: 'Fragmentación y florecimiento' },
-            { num: 'XII', label: 'Imperios Africanos', desc: 'Almorávides y Almohades' },
-            { num: 'XIII', label: 'Guerra y Reconquista', desc: 'El avance cristiano' },
-            { num: 'XIV', label: 'Reino de Granada', desc: 'El esplendor de la Alhambra' },
-            { num: 'XV', label: 'El Final de una Era', desc: '1492 y la rendición' },
-            { num: 'XVI', label: 'Memoria Morisca', desc: 'El legado persistente' },
-            { num: 'XVII', label: 'Diáspora', desc: 'La expulsión definitiva' },
-            { num: 'XVIII', label: 'Arqueología del Saber', desc: 'La Ilustración redescubierta' },
-            { num: 'XIX', label: 'El Mito Romántico', desc: 'Washington Irving y los viajeros' }
+        const eras = [
+            { s: 'X', label: 'Califato de Córdoba', cta: 'Descifra los pergaminos de la biblioteca de Al-Hakam II...' },
+            { s: 'XI', label: 'Cortes de Taifas', cta: 'Explora la fragmentación del poder en las cortes de taifas...' },
+            { s: 'XII', label: 'Era Almorávide/Almohade', cta: 'Cruza el desierto con los ejércitos almorávides y almohades...' },
+            { s: 'XIII', label: 'Foundations of Granada', cta: 'Sigue el rastro de la seda hacia los cimientos de la Alhambra...' },
+            { s: 'XIV', label: 'Esplendor Nazarí', cta: 'Escucha el murmullo de las aguas en el Generalife...' },
+            { s: 'XV', label: 'Las Capitulaciones', cta: 'Escucha los ecos finales de las Capitulaciones de Granada...' },
+            { s: 'XVI', label: 'Resistencia Morisca', cta: 'Observa la resistencia de la lengua ante el olvido morisco...' },
+            { s: 'XVII', label: 'Diáspora y Exilio', cta: 'Rastrea la huella andalusí en los exilios del Magreb...' },
+            { s: 'XVIII', label: 'Mirada Ilustrada', cta: 'Ilumina las ruinas romanas bajo la mirada ilustrada...' },
+            { s: 'XIX', label: 'Mito Romántico', cta: 'Redescubre el romanticismo en los cuentos de la Alhambra...' }
         ];
 
-        let currentS = '';
+        // Custom Cursor
+        const cursor = document.getElementById('nil-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
-        function setupNodes() {
-            const container = document.querySelector('.river-container');
-            const pathLength = riverPath.getTotalLength();
-            
-            centuries.forEach((c, index) => {
-                const fraction = (index + 0.5) / centuries.length;
-                const point = riverPath.getPointAtLength(fraction * pathLength);
+        // Initialize Nile
+        const path = document.getElementById('nile-path-main');
+        const nodesLayer = document.getElementById('nodes-layer');
+        const totalLength = path.getTotalLength();
+
+        function createNodes() {
+            eras.forEach((era, i) => {
+                const fraction = (i + 0.5) / eras.length;
+                const point = path.getPointAtLength(fraction * totalLength);
                 
                 const node = document.createElement('div');
-                node.className = 'node';
+                node.className = 'era-node';
                 node.style.left = point.x + 'px';
                 node.style.top = point.y + 'px';
-                node.onclick = () => openModal(c.num, c.label);
                 
                 node.innerHTML = `
-                    <div class="node-circle"></div>
-                    <div class="node-label">Siglo ${c.num}</div>
-                    <div class="node-desc">${c.label}</div>
+                    <div class="era-dot"></div>
+                    <div class="era-content">
+                        <div class="era-year">S.${era.s}</div>
+                        <div class="era-cta">${era.cta}</div>
+                    </div>
                 `;
                 
-                container.appendChild(node);
+                node.onclick = () => openEra(era);
+                nodesLayer.appendChild(node);
             });
         }
 
-        function openModal(siglo, label) {
-            currentS = siglo;
-            document.getElementById('m-title').innerText = `Siglo ${siglo} - ${label}`;
-            document.getElementById('m-body').innerText = `Has llegado a una sección clave del Nilo. Selecciona una dimensión para que Nil bucee en los archivos específicos del Siglo ${siglo}.`;
-            document.getElementById('info-modal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('info-modal').classList.remove('active');
-        }
-
-        function deepQuery(ambito) {
-            const loader = document.getElementById('loader');
-            const msg = document.getElementById('loader-msg');
-            const locations = ['Córdoba', 'Sevilla', 'Granada', 'Toledo', 'Almería'];
-            const randomLoc = locations[Math.floor(Math.random()*locations.length)];
+        function openEra(era) {
+            const modal = document.getElementById('data-modal');
+            const content = document.getElementById('modal-content');
             
-            msg.innerText = `Nil está buceando en los archivos de ${randomLoc}...`;
-            loader.style.display = 'flex';
+            const loadings = [
+                `Nil está buceando en los archivos de ${era.label}...`,
+                "Sincronizando los astrolabios del conocimiento...",
+                "Extrayendo sabiduría de los manuscritos perdidos...",
+                "Nil fluye a través de los meandros del tiempo..."
+            ];
             
-            setTimeout(() => {
-                loader.style.display = 'none';
-                document.getElementById('m-body').innerHTML = `<span style="color: var(--nil-cyan)">NIL REPORT (S.${currentS} / ${ambito}):</span><br><br>La corriente nos muestra que en el siglo ${currentS}, el ámbito ${ambito} fue determinante para la evolución de la madre de las culturas. Los registros recuperados de NotebookLM confirman una infraestructura de conocimiento sin precedentes.`;
-            }, 1800);
+            log(`CALL: MCP_BRIDGE -> SIGLO_${era.s}`);
+            log(`STATUS: ${loadings[Math.floor(Math.random()*loadings.length)]}`);
+            
+            modal.classList.add('active');
+            content.innerHTML = `<h2 style="font-family: Cormorant Garamond; font-size: 3rem; color: var(--noor-gold); margin-bottom: 2rem;">Siglo ${era.s} / ${era.label}</h2><p style="font-weight: 200; line-height: 2; font-size: 1.1rem; color: var(--text-off);">${era.cta}<br><br>Conectando con la base de datos Wos 2026...</p>`;
         }
 
-        window.onload = setupNodes;
-
-        // Custom Flow Scroll Effect
-        window.addEventListener('scroll', () => {
-            const flow = document.getElementById('flow-line');
-            const dash = 2000;
-            // logic to animate line could go here
+        // Dev Mode Easter Egg
+        let typed = "";
+        document.addEventListener('keydown', (e) => {
+            typed += e.key.toUpperCase();
+            if(typed.includes("LOG")) {
+                document.getElementById('dev-panel').classList.toggle('active');
+                typed = "";
+                log("DEV_MODE: System Access Granted.");
+            }
+            if(typed.length > 10) typed = "";
         });
 
+        function log(msg) {
+            const stream = document.getElementById('log-stream');
+            const div = document.createElement('div');
+            div.className = 'log-entry';
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] <span class="log-cyan">${msg}</span>`;
+            stream.prepend(div);
+        }
+
+        // Loader Sequence
+        window.addEventListener('load', () => {
+            const l = document.getElementById('loader');
+            const prog = document.getElementById('loader-progress');
+            let p = 0;
+            const int = setInterval(() => {
+                p += Math.random() * 10;
+                prog.style.width = p + "%";
+                if(p >= 100) {
+                    clearInterval(int);
+                    l.style.opacity = '0';
+                    setTimeout(() => l.style.display = 'none', 1000);
+                }
+            }, 100);
+        });
+
+        createNodes();
     </script>
 </body>
 </html>
