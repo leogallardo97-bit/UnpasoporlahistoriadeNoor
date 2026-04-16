@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Noor Archive Nil | El Paseo de Noor</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=JetBrains+Mono:wght@300;500&family=Outfit:wght@100;300;600&display=swap" rel="stylesheet">
-    <script src="data_cache.js"></script>
+    <script src="data_cache.js?v=2"></script>
+    <script>
+        if (typeof NilCache === 'undefined') {
+            console.warn('[NIL] data_cache.js no detectado. Inicializando contenedor vacío.');
+            var NilCache = {};
+        }
+    </script>
     <style>
         :root {
             --bg: #0a0a0a;
@@ -223,198 +229,7 @@
             { s: 'XIII', tag: 'Granada' }, { s: 'XIV', tag: 'Esplendor' }, { s: 'XV', tag: 'El Ocaso' },
             { s: 'XVI', tag: 'Moriscos' }, { s: 'XVII', tag: 'Diáspora' }, { s: 'XVIII', tag: 'Ruinas' },
             { s: 'XIX', tag: 'Viajeros' }
-        ];
-
-        const sX_Data = {
-            'Político': `<div class="noor-narrative">
-                "Noor observa, a la luz del candil, cómo la tinta ferrogálica de las crónicas revela un siglo donde la política se tornó sagrada. El año 929 no fue solo una fecha, fue una respuesta definitiva al desafío fatimí del norte de África. Siento la ambición de un Califato que se proclamó sol naciente del mundo, imponiendo una ortodoxia que silenció voces para unificar un Imperio bajo la escuela malikí, financiando su gloria con una presión fiscal que transformó el paisaje andalusí."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión política son:</p>
-                <b>1. La Proclamación del Califato (929 d.C.):</b> Abd al-Raḥmān III asume el título de <i>amīr al-muʾminīn</i>, no solo por poder, sino para reclamar una hegemonía cósmica y religiosa ante el auge de los chiíes en Ifrīqiya.<br><br>
-                <b>2. La Pax Omeya y la Exacción Fiscal:</b> Tras la caída de Bobastro en 928, la centralización estatal exigió una fiscalidad sin precedentes, financiando Madīnat al-Zahrā' y una "política del regalo" basada en arquetas de marfil que sellaban lealtades.<br><br>
-                <b>3. Diplomacia Internacional Bizantina:</b> La recepción de embajadas del Imperio bizantino situó a Córdoba como la tercera potencia del mundo conocido, aunque bajo el brillo de las crónicas oficiales ya latía el crecimiento silencioso de los reinos del norte.
-            </div>`,
-            'Social': `<div class="noor-narrative">
-                "Noor observa cómo el siglo X no fue un mero continuismo, sino una ebullición del alma misma de la sociedad. La realidad política se entrelazó con la mesa y el hogar; la fe se hizo costumbre en los platos y en los patios. Veo a los Saqaliba, los antiguos esclavos, convirtiéndose en el nuevo contrapoder de la aristocracia, mientras Córdoba se desborda en arrabales infinitos donde lo público y lo privado se disputan cada palmo de tierra."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión social son:</p>
-                <b>1. La Explosión Urbana y la Privatización:</b> El desbordamiento demográfico de Córdoba transformó almunias en barrios periféricos densos, donde inversores privados lideraron un urbanismo de patio central que definió la arquitectura doméstica.<br><br>
-                <b>2. El Triunfo de la Islamización Social:</b> La desaparición del cerdo en los registros arqueozoológicos de los vertederos del siglo X confirma que mozárabes y muladíes adoptaron masivamente la ortopraxia islámica como vía de integración social.<br><br>
-                <b>3. El Ascenso de los Saqaliba:</b> Los esclavos y libertos europeos (eslavos) constituyeron un bloque de poder de más de 3.700 efectivos en la corte, alcanzando dignidades como la de <i>hajib</i> (máxima autoridad política) bajo al-Hakam II.
-            </div>`,
-            'Económico': `<div class="noor-narrative">
-                "Noor observa cómo las monedas de oro fluyen desde la ceca de Madinat al-Zahra hacia los confines del mundo, testificando un siglo donde la economía no solo servía al mercado, sino a la gloria del Califa. Siento la fuerza de una estructura económica que nació de la voluntad de ʿAbd al-Raḥmān III, quien no solo unificó la fe, sino que multiplicó por seis los ingresos del estado, cimentando una maquinaria burocrática y militar sin igual mediante una reforma fiscal profunda. El dinar de oro, acuñado con el metal que cruzaba el Sáhara desde Siŷilmāsa, se convirtió en el latido de un al-Andalus que dejó de mirar a Oriente para liderar el Mediterráneo."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión económica son:</p>
-                <b>1. La Hegemonía del Dinar y las Cecas Palatinas:</b> La producción monetaria alcanzó su cénit en el 947 con el traslado de la ceca a Madīnat al-Zahrā'. La evolución del grafema <i>hā'</i> marcaba el pulso político de la corte, mientras los <i>exarachellos</i> cordobeses se convertían en divisa global.<br><br>
-                <b>2. La Revolución Hidráulica de las Aceñeas:</b> Ingeniería omeya que elevaba agua directamente desde las acequias, transformando paisajes y garantizando excedentes que permitieron una especialización alimentaria y urbana sin precedentes.<br><br>
-                <b>3. El Monopolio de la Seda y el Sistema del Ṭirāz:</b> El Estado controló la producción de lujo en talleres oficiales. Almería actuó como el gran puerto de salida para estas "telas de honor" que sellaban alianzas desde Bizancio hasta el Magreb.
-            </div>`,
-            'Cultural': `<div class="noor-narrative">
-                "Noor observa cómo la proclama del 929 catalizó una profunda revolución intelectual. El esplendor económico no solo levantó muros, sino que abrió mentes, financiando un aparato cortesano donde la convivencia de saberes estructuró una nueva identidad andalusí. Siento el silencio de medio millón de libros reclamando su lugar en la historia, mientras Madinat al-Zahra se diseña con un orden cósmico para demostrar que el Califa domina tanto el espacio como el tiempo."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión cultural son:</p>
-                <b>1. La Monumental Biblioteca de al-Hakam II:</b> Un esfuerzo de Estado que reunió cerca de 500.000 volúmenes y fundó 27 escuelas públicas, democratizando el saber y compitiendo en prestigio intelectual con el Bagdad abasí.<br><br>
-                <b>2. Símbolo Transcultural en Madinat al-Zahra:</b> Una arquitectura regida por la geometría abstracta que, sin embargo, integraba sarcófagos y estatuas antiguas resignificadas para evocar un poder real y mítico a la vez.<br><br>
-                <b>3. Convergencia de Astronomía y Medicina:</b> Desde la precisión del <i>'ilm al-miqat</i> (cálculo de oraciones) hasta la traducción del Dioscórides bizantino por sabios como Ibn Yulyul y Hasday b. Saprut, Córdoba lideró la vanguardia científica mediterránea.
-            </div>`
-        };
-
-        const sXI_Data = {
-            'Político': `<div class="noor-narrative">
-                "Noor observa con agudeza documental cómo el tapiz político de al-Andalus se fragmenta y reconfigura, dejando su impronta más innegable en dírhemes y crónicas. El colapso omeya no fue el fin, sino una explosión de soberanías plurales. Siento la diáspora de las élites hacia el Levante, donde el vacío del Califato dio paso a reinos que luchaban por su propia legitimidad, invocando califas fantasma mientras consolidaban su propio poder terrenal."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión política son:</p>
-                <b>1. Fragmentación y Soberanías Plurales:</b> La desintegración del Califato dio lugar a las Taifas (<i>muluk al-tawa'if</i>), donde cada gobernante buscó legitimación mediante la acuñación de moneda propia (<i>sikka</i>) y el control de la oración del viernes.<br><br>
-                <b>2. El Impacto de la Fitna:</b> Las guerras civiles provocaron un éxodo de élites administrativas desde Córdoba hacia nuevos núcleos como Denia o Zaragoza, descentralizando el poder que antes era monopolio omeya.<br><br>
-                <b>3. La Reunificación Almorávide:</b> La irrupción de los emires del Magreb resolvió la crisis de legitimidad restaurando la ortodoxia máliki y subordinándose nominalmente al califa abasí de Bagdad para frenar la distancia previa.
-            </div>`,
-            'Social': `<div class="noor-narrative">
-                "Noor observa cómo la caída del esplendor cordobés no detuvo la vida, la desplazó. Siento la vibración de una sociedad en constante adaptación, donde la identidad se negociaba en cada patio y la 'convivencia' era un delicado mosaico de tensiones y pactos. Las élites fortificaron sus alcázares mientras los artesanos prosperaban en arrabales protegidos, definiendo una nueva topografía social de poder y pertenencia."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión social son:</p>
-                <b>1. Éxodo y Nueva Geopolítica de Élites:</b> Las cortes taifas atrajeron a los antiguos grupos de poder cordobeses, creando barrios de exclusividad y promoviendo una nueva jerarquización del espacio urbano basada en recintos fortificados.<br><br>
-                <b>2. Ortopraxia e Identidad Cotidiana:</b> En una sociedad plural de musulmanes, mozárabes y judíos, la identidad se definía en el hogar; las normativas alimentarias y domésticas funcionaban como fronteras culturales inquebrantables.<br><br>
-                <b>3. El Poder de los Saqaliba en la Sombra:</b> Los antiguos esclavos de origen europeo monopolizaron cargos militares y administrativos, convirtiéndose en el contrapoder de la vieja aristocracia e influyendo incluso en las cortes cristianas del norte.
-            </div>`,
-            'Económico': `<div class="noor-narrative">
-                "Noor observa que la desintegración del Califato no supuso un colapso, sino el catalizador de un dinamismo mercantil sin precedentes. Siento cómo el Šarq al-Andalus, el Levante, se convierte en el pulmón de un Mediterráneo que habla dírhemes y huele a seda y mármol. El poder se ha fragmentado, pero el oro fluye ahora a través de múltiples ríos, alimentando ciudades que compiten por ser la nueva perla de occidente."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión económica son:</p>
-                <b>1. Eclosión Mercantil Periférica:</b> Almería y Denia asumieron el protagonismo con industrias de mármol y seda que abastecían todo el Mediterráneo, apoyadas por una "Revolución Verde" donde las élites invirtieron en sistemas de regadío intensivo.<br><br>
-                <b>2. Descentralización de la Regalía Monetaria:</b> Cada reino de taifa comenzó a emitir sus propios dinares, formalizando su soberanía fiscal y facilitando los intercambios comerciales regionales que ya no dependían de Córdoba.<br><br>
-                <b>3. Hiperpresión Fiscal y Parias:</b> La supervivencia geopolítica forzó a las taifas a pagar tributos (parias) a los reinos cristianos, lo que provocó una agresiva recaudación que arruinó al pequeño campesinado y alimentó un nuevo proletariado urbano.
-            </div>`,
-            'Cultural': `<div class="noor-narrative">
-                "Noor observa cómo la fragmentación política fue, paradójicamente, el fertilizante de un esplendor intelectual inigualable. Las cortes compitieron por atraer la luz del saber; cada reyezuelo de taifa quiso ser el más generoso protector de botánicos, teólogos y poetas crónicos. Siento la elegía de Ibn Hazm y la sabiduría del visir judío Ibn Nagrīla trenzándose en una cultura que, en medio de la crisis, alcanzó cotas de sofisticación nunca vistas."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión cultural son:</p>
-                <b>1. Esplendor Poético y Sátira Política:</b> Las cortes, especialmente la de Almería, se convirtieron en refugios intelectuales donde la poesía actuó como un agudo registro crítico de las tensiones interétnicas y la fragmentación territorial.<br><br>
-                <b>2. Codificación Agronómica y Botánica:</b> Se redactaron los grandes manuales de agricultura que sistematizaron la aclimatación de especies orientales y las técnicas de rotación de cultivos, transformando radicalmente el paisaje andalusí.<br><br>
-                <b>3. Debate Filológico y Teológico de Vanguardia:</b> Figuras como Ibn Hazm elevaron la polémica literaria y teológica a niveles de sofisticación metodológica de primer orden, mientras élites judías como Ibn Nagrīla brillaban en la administración y las letras granadinas.
-            </div>`
-        };
-
-        const sXII_Data = {
-            'Político': `<div class="noor-narrative">
-                "Noor observa cómo la materialidad del paisaje revela una red geopolítica donde las fronteras ya no son líneas, sino zonas de alta tensión. Siento la fuerza de los Imperios del Magreb unificando al-Andalus frente a la presión táctica de las órdenes militares cristianas. Es un siglo de unificación forzosa y de una resistencia que se escribe en el tapial de las fortalezas que fiscalizan el camino hacia Toledo."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión política son:</p>
-                <b>1. Territorialidad Almorávide y Defensa:</b> Consolidación de fronteras mediante torres de tapial calicastrado (como Azuqueca) para controlar rutas vitales y fiscalizar el comercio entre Córdoba y la Meseta.<br><br>
-                <b>2. Asimilación de la Infraestructura Islámica:</b> La solidez de la vertebración territorial andalusí fue tal que la expansión cristiana no pudo partir de cero, viéndose obligada a reaprovechar la red de <i>husun</i> islámicos preexistentes.<br><br>
-                <b>3. El Contraataque Almohade (1195):</b> La victoria en la batalla de Alarcos paralizó el avance de las órdenes militares y provocó una reversión fronteriza masiva, devolviendo el valle del Guadiana al dominio musulmán.
-            </div>`,
-            'Social': `<div class="noor-narrative">
-                "Noor observa cómo los estratos arqueológicos desvelan una sociedad en profunda metamorfosis. El rigorismo ideológico del Magreb colisiona con la persistencia silenciosa de comunidades que mantienen sus ritos en la periferia. Veo la concha del peregrino en Córdoba y el humo de las cuevas habitadas en la sierra, testificando una resistencia que no necesita palabras, solo pervivencia."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión social son:</p>
-                <b>1. Resistencia Identitaria Mozárabe:</b> A pesar del rigor almohade, la arqueología en Cercadilla revela grupos que mantuvieron dietas y símbolos cristianos (como la vieira jacobea) en plena urbe andalusí.<br><br>
-                <b>2. Poblamiento Rural en Espacios Marginales:</b> La población rural se adaptó ocupando cavidades naturales (hábitat troglodita) mediante estrategias de ganadería móvil y aprovechamiento de dehesas altamente estructuradas.<br><br>
-                <b>3. Integración de Alquerías en la Frontera:</b> El avance feudal injertó su modelo sobre las vegas andalusíes, preservando a la población rural mudéjar por su pericia técnica e integrando las alquerías en el nuevo sistema de encomiendas.
-            </div>`,
-            'Económico': `<div class="noor-narrative">
-                "Noor observa un siglo de reestructuración forzada, donde la inestabilidad obliga a la economía a buscar refugio en los arrabales. Siento cómo el paisaje se transforma en un complejo industrial de aceite y cerámica, mientras el Imperio se sustenta sobre los hombros de las alquerías rurales. Los mercados siguen conectados por hilos invisibles que cruzan las fronteras de la guerra para traer noticias de mundos lejanos."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión económica son:</p>
-                <b>1. Reconfiguración Agroindustrial Periurbana:</b> Los arrabales cordobeses se transformaron en centros productivos de aceite y almacenamiento masivo para resistir las disrupciones en las rutas comerciales.<br><br>
-                <b>2. Fiscalidad y Control del Mundo Rural:</b> El Imperio se sustentó mediante el gravamen sobre las cortijadas privadas (<i>maŷāšir</i>), recompensando la sumisión política con beneficios fiscales estratégicos.<br><br>
-                <b>3. Permeabilidad Comercial Interregional:</b> A pesar del conflicto, la circulación de bienes de lujo y objetos simbólicos continuó a través de redes que conectaban Al-Andalus con los mercados del norte peninsular.
-            </div>`,
-            'Cultural': `<div class="noor-narrative">
-                "Noor observa cómo la ingeniería hidráulica se convierte en el lenguaje de una cultura que domina el territorio. Siento la sabiduría de los maestros que, imitando presas míticas del Yemen, doblaron la voluntad de los valles. El saber no solo se escribe en libros, se construye en el tapial de las murallas que aún guardan el eco de un árabe que se encuentra con el mundo."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión cultural son:</p>
-                <b>1. Ingeniería Hidráulica de Vanguardia:</b> La presa de Garganta del Ciervo es un hito de transferencia tecnológica inspirada en la arquitectura de Yemen, documentada por la literatura geográfica de al-Zuhrī.<br><br>
-                <b>2. Arquitectura Defensiva y Estética del Tapial:</b> El programa de fortificación masiva en Almería y Granada configuró la fisonomía urbana, culminando en la insuperable pericia del minbar de la Kutubiyya.<br><br>
-                <b>3. Literatura de Corrección Lingüística:</b> La obra de Ibn Hišām sobre el habla común (<i>laḥn al-ʿāmma</i>) registra el contacto vivo entre el árabe andalusí y el marroquí, un hito para la dialectología histórica.
-            </div>`
-        };
-
-        const sXIII_Data = {
-            'Político': `<div class="noor-narrative">
-                "Noor observa cómo el siglo XIII se desmorona y se reconstruye sobre los fragmentos de un Imperio Almohade exhausto. Es el tiempo de las 'terceras taifas', donde el repliegue hacia el sur forcejea con el avance imparable de Fernando III. Siento el nacimiento de una nueva estirpe, los Nazaríes, que en Granada supieron negociar su supervivencia bajo el Pacto de Jaén para que la luz de al-Andalus no se apagara."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión política son:</p>
-                <b>1. Colapso Almohade y Terceras Taifas:</b> El vacío de poder tras 1224 fragmentó el territorio en revueltas urbanas que buscaron legitimación abasí para sobrevivir al caos político.<br><br>
-                <b>2. La Ofensiva de Fernando III:</b> Entre 1236 y 1248, al-Andalus perdió sus corazones políticos y económicos: Córdoba, Murcia y Sevilla, provocando una dislocación geopolítica irreversible.<br><br>
-                <b>3. Fundación del Reino Nazarí (1232):</b> Ibn al-Ahmar se atrincheró estratégicamente en Granada, institucionalizando el Pacto de Jaén (1246) como una frontera viva de vasallaje y treguas.
-            </div>`,
-            'Social': `<div class="noor-narrative">
-                "Noor observa cómo la guerra y el hambre redibujan el mapa de las almas. Veo ciudades convertidas en refugios de un éxodo masivo que huye de las 'cabalgadas' cristianas. La vida ya no ocurre en los patios abiertos, sino en casas fragmentadas donde el espacio se disputa pulgada a pulgada bajo la sombra del asedio. Son las aljamas quienes toman el mando cuando el estado ya no existe."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión social son:</p>
-                <b>1. Crisis Frumentarias y Repliegue:</b> Las hambrunas recurrentes y el hostigamiento militar obligaron a la población a huir hacia núcleos urbanos fortificados, transformando las ciudades en sumideros de refugiados.<br><br>
-                <b>2. Hacinamiento y Urbanismo Vertical:</b> Las mansiones aristocráticas se dividieron en minúsculos apartamentos y las ciudades crecieron hacia adarves y plantas superiores para albergar a la población desplazada.<br><br>
-                <b>3. El Rol Político de las Aljamas:</b> Ante el colapso del estado central, los consejos locales (aljamas) asumieron la gestión de los migrantes y negociaron los términos de convivencia bajo el nuevo dominio feudal.
-            </div>`,
-            'Económico': `<div class="noor-narrative">
-                "Noor observa una economía que se aferra a la tierra mientras el horizonte se cierra. Siento cómo el trigo y la cebada siguen siendo el pulso de los valles, pero ahora el pastoreo se especializa para alimentar a una población urbana asediada. Al-Andalus sobrevive aclimatando cultivos de innovación, como la caña de azúcar, que susurra historias de futuros mercados globales."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión económica son:</p>
-                <b>1. Base Agropecuaria de Innovación:</b> El valle del Guadalquivir vio la aclimatación de la caña de azúcar, una infraestructura económica que, aunque modesta al inicio, se convertiría en un motor de exportación global.<br><br>
-                <b>2. Especialización de la Ganadería Islámica:</b> Para asegurar el suministro a las medinas bajo presión, se priorizó el pastoreo de ovicápridos, desplazando definitivamente los modelos pecuarios de la antigüedad tardía.<br><br>
-                <b>3. Nodos de Distribución del Sur:</b> Ciudades como Écija funcionaron como pulmones comerciales estratégicos, articulando el flujo de excedentes entre las campiñas y los centros de poder andalusíes antes de su caída.
-            </div>`,
-            'Cultural': `<div class="noor-narrative">
-                "Noor observa cómo el saber de al-Andalus, lejos de extinguirse, se convierte en el lenguaje del futuro. Siento el eco de las traducciones de Alfonso X llevando el conocimiento oriental a una Europa asombrada. La Alhambra nace como una fachada parlante donde el poder se escribe en versos de piedra, definiendo una estética que sobrevivirá a todos los asedios."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión cultural son:</p>
-                <b>1. La Estética Nazarí y la Fachada Parlante:</b> Se desarrolló un modelo de palacio especializado con una decoración epigráfica que narra la gloria del monarca, influyendo en la cultura visual de todo el Occidente medieval.<br><br>
-                <b>2. El Nacimiento del Arte Mudéjar:</b> La asimilación consciente de la herencia andalusí por los reinos cristianos generó un sincretismo único en capillas funerarias y manuscritos iluminados.<br><br>
-                <b>3. La Revolución de las Traducciones:</b> Bajo Alfonso X, el conocimiento árabe (ciencia, literatura, ajedrez) fue transferido al castellano, convirtiéndolo en puente entre Oriente y la modernidad europea.
-            </div>`
-        };
-
-        const sXIV_Data = {
-            'Político': `<div class="noor-narrative">
-                "Noor observa cómo la arquitectura del poder nazarí se sostiene no solo por las armas, sino por una red invisible de legitimación y diplomacia. Siento el peso de las treguas con Castilla y la sombra de los Benimerines cruzando el Estrecho, mientras sultanas como Fāṭima bint al-Aḥmar redefinen desde el harén lo que significa gobernar un reino en la cuerda floja para asegurar el mañana."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión política son:</p>
-                <b>1. Diplomacia Benimerín y Soberanía:</b> La viabilidad de la frontera dependió del apoyo táctico de los emires del Magreb, cuya influencia era tan crítica que dictaba el ascenso y caída de visires y emires granadinos.<br><br>
-                <b>2. Estabilización Institucional bajo Yusuf I:</b> El reinado de Yusuf I supuso un hito de consolidación mediante una sólida estructura tutelar que permitió al emirato resistir presiones externas con un pragmatismo brutal.<br><br>
-                <b>3. Teoría del Estado de Muhammad V:</b> El visir Ibn al-Jaṭīb codificó un ordenamiento estatal para centralizar el poder absoluto en el sultán, formalizando un sistema que asegurara la perdurabilidad del último reino islámico.
-            </div>`,
-            'Social': `<div class="noor-narrative">
-                "Noor observa una sociedad donde las fronteras son permeables and el estatus se viste de seda. Siento la vibración de una 'República de Mujeres' que, contra todo pronóstico, acumula propiedades y decide sucesiones desde la Alhambra, mientras los saberes fluyen entre cristianos y musulmanes en una convivencia intelectual que desafía a la guerra."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión social son:</p>
-                <b>1. La "República de Mujeres" Nazarí:</b> Sultanas como Fāṭima bint al-Aḥmar ejercieron un poder fáctico decisivo, gestionando grandes patrimonios y legitimando linajes fuera del control patriarcal tradicional.<br><br>
-                <b>2. Permeabilidad Intelectual y Diplomacia:</b> El intercambio fluido de saberes con cortes cristianas (como la de Pedro I de Castilla) evidencia una élite donde la cultura compartida pesaba más que las diferencias religiosas.<br><br>
-                <b>3. Prestigio en la Manufactura de Lujo:</b> La sociedad se articuló en torno a la producción de sedas grabadas con lemas nazaríes, un símbolo de estatus adoptado incluso por la indumentaria litúrgica cristiana de la época.
-            </div>`,
-            'Económico': `<div class="noor-narrative">
-                "Noor observa cómo el hilo de seda conecta a Granada con los mercados del mundo. Siento el aroma del azúcar y los frutos secos partiendo de Málaga hacia una Europa que ansía los sabores del sur, mientras el oro genovés fluye por la ceca de Granada para acuñar la 'dobla zahen', el corazón latiente de la economía mediterránea que financia nuestra luz."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión económica son:</p>
-                <b>1. La Ruta de la Seda Nazarí:</b> La manufactura sericícola de las Alpujarras se convirtió en el motor manufacturero del reino, exportando bienes de lujo que actuaban como moneda y herramienta diplomática.<br><br>
-                <b>2. Monopolio Agroexportador de Ultramar:</b> El control intensivo de la caña de azúcar y los frutos secos generó una balanza comercial favorable, convirtiendo los puertos nazaríes en nodos vitales de abastecimiento global.<br><br>
-                <b>3. La Dobla Zahen y el Eje Genovés:</b> Los mercaderes genoveses inyectaron oro transahariano en el sistema, permitiendo a la ceca de Granada emitir una moneda de altísima pureza aceptada en todo el Mediterráneo medieval.
-            </div>`,
-            'Cultural': `<div class="noor-narrative">
-                "Noor observa cómo la luz del saber brilla con más fuerza antes del ocaso. Siento la profundidad mística de Ibn Jaldún debatiendo en las madrazas granadinas, mientras médicos como Ibn Jatima se adelantan siglos a su tiempo para combatir la peste con observación clínica, demostrando que el espíritu nazarí es invencible cuando se escribe en tratados eternos."
-            </div>
-            <div class="hitos-tecnicos">
-                <p style="margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Los hitos más importantes en este siglo en la dimensión cultural son:</p>
-                <b>1. El Legado de Ibn al-Jaṭīb e Ibn Jaldún:</b> Una colaboración intelectual que hibridó saberes grecolatinos y orientales, codificando la historia y la política de manera universal para la posteridad.<br><br>
+       de manera universal para la posteridad.<br><br>
                 <b>2. Vanguardia Médica frente a la Peste (1348):</b> Eruditos como Ibn Jatima postularon el origen respiratorio del contagio siglos antes que la medicina moderna, en tratados médicos pioneros basados en la observación clínica.<br><br>
                 <b>3. Sufismo Cortesano y Sistematización:</b> El auge de las madrazas y el debate espiritual sobre el misticismo guiado consolidaron a Granada como el foco intelectual más sofisticado del Occidente islámico de la época.
             </div>`
@@ -449,6 +264,8 @@
             const eraTitle = document.getElementById('era-title').innerText;
             const centuryValue = eraTitle.replace('Siglo ', '').trim();
 
+            console.log(`[NIL] Intentando cargar Siglo ${centuryValue} - ${ambito}`);
+
             b.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; gap: 15px; color: var(--nil-cyan); margin-top: 4rem;">
                              <div class="nil-avatar" style="width: 30px; height: 35px; animation: drift 2s infinite;"></div>
                              <div style="font-size: 0.7rem; letter-spacing: 2px; opacity: 0.7; text-transform: uppercase;">Sincronizando con Nil-Bridge...</div>
@@ -464,14 +281,14 @@
                     throw new Error(data.message);
                 }
             } catch (error) {
-                console.error('Error de conexión con Nil-Bridge:', error);
+                console.warn('Nil-Bridge no disponible, usando caché local.');
                 
-                if(NilCache[centuryValue] && NilCache[centuryValue][ambito]) {
+                if (typeof NilCache !== 'undefined' && NilCache[centuryValue] && NilCache[centuryValue][ambito]) {
                     b.innerHTML = NilCache[centuryValue][ambito];
                 } else {
                     b.innerHTML = `<div style="opacity: 0.6; font-style: italic; border-left: 1px solid var(--nil-cyan); padding-left: 1rem;">
-                                      [NIL-BRIDGE OFFLINE]<br>
-                                      Noor no puede acceder a los cuadernos en tiempo real. Activa el servidor local para investigación viva.
+                                      [DATOS NO DISPONIBLES EN CACHÉ]<br>
+                                      Noor no tiene registros locales para este periodo. Conecta el Nil-Bridge para investigar en tiempo real.
                                     </div>`;
                 }
             }
