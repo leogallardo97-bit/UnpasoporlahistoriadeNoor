@@ -104,11 +104,18 @@
 
         .era-dot {
             width: 24px; height: 24px;
-            background: var(--bg); border: 1px solid var(--nil-cyan);
+            background: var(--bg); border: 2px solid var(--nil-cyan);
             border-radius: 50%; transition: var(--transition-fluid);
             box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+            position: relative;
         }
-        .era-node:hover .era-dot { background: var(--nil-cyan); box-shadow: 0 0 30px var(--nil-cyan); }
+        .era-dot::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 60%; height: 60%; background: var(--nil-cyan);
+            border-radius: 50%; transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s ease;
+        }
+        .era-node:hover .era-dot::after, .era-node.active .era-dot::after { transform: translate(-50%, -50%) scale(1); }
 
         .era-label { position: absolute; top: 35px; text-align: center; white-space: nowrap; }
         .era-name {
@@ -116,12 +123,16 @@
             font-size: clamp(1.2rem, 5vw, 2.2rem);
             color: var(--noor-gold);
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            font-weight: 600;
         }
         .era-cta { font-size: 0.5rem; letter-spacing: 2px; color: var(--text-off); opacity: 0.6; }
 
         @media (max-width: 768px) {
             .nile-container { height: 2500px; }
             #nil-guide { bottom: 15px; right: 15px; transform: scale(0.8); }
+            .era-dot { width: 45px; height: 45px; border-width: 3px; }
+            .era-label { top: 55px; }
+            .era-name { font-size: 1.4rem; background: rgba(10,10,10,0.6); padding: 2px 8px; border-radius: 4px; }
         }
 
         /* Responsividad del Panel */
@@ -275,7 +286,17 @@
                 const p = path.getPointAtLength(frac * pathLen);
                 const node = document.createElement('div');
                 node.className = 'era-node';
-                node.style.left = (p.x * scaleX) + 'px'; 
+                
+                // Centrado dinámico para móvil
+                let finalX = p.x * scaleX;
+                if (window.innerWidth < 768) {
+                    // Si el nodo se sale por la derecha (como reporta el usuario), lo empujamos al centro
+                    // La coordenada 500 es el centro del SVG.
+                    const centerBias = 0.5; // Factor de tendencia al centro en móvil
+                    finalX = (p.x * centerBias + 500 * (1 - centerBias)) * scaleX;
+                }
+
+                node.style.left = finalX + 'px'; 
                 node.style.top = (p.y * scaleY) + 'px';
                 node.innerHTML = `
                     <div class="era-dot"></div>
@@ -285,9 +306,11 @@
                     </div>
                 `;
                 node.onclick = () => { 
+                    document.querySelectorAll('.era-node').forEach(n => n.classList.remove('active'));
+                    node.classList.add('active');
                     document.getElementById('era-title').innerText = `Siglo ${era.s}`; 
                     togglePanel(true); 
-                    fetchMCP('Político'); // Carga automático la primera dimensión
+                    fetchMCP('Político');
                 };
                 nodes.appendChild(node);
             });
@@ -333,9 +356,19 @@
         }
 
         window.onload = () => {
-            buildRiver();
-            let p = 0; const bar = document.getElementById('load-bar');
-            const interval = setInterval(() => { p += 10; bar.style.width = p + "%"; if(p>=100) { clearInterval(interval); document.getElementById('init-loader').style.display='none'; } }, 50);
+            // Un pequeño delay para asegurar que el DOM y estilos CSS estén calculados
+            setTimeout(() => {
+                buildRiver();
+                let p = 0; const bar = document.getElementById('load-bar');
+                const interval = setInterval(() => { 
+                    p += 10; 
+                    bar.style.width = p + "%"; 
+                    if(p>=100) { 
+                        clearInterval(interval); 
+                        document.getElementById('init-loader').style.display='none'; 
+                    } 
+                }, 50);
+            }, 100);
         };
     </script>
 </body>
